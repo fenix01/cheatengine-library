@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <PathDelim Value="\"/>
+    <General>
+      <SessionStorage Value="InProjectDir"/>
+      <MainUnit Value="0"/>
+      <Title Value="small_ce"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <XPManifest>
+        <DpiAware Value="True"/>
+        <ExecutionLevel Value="2"/>
+      </XPManifest>
+      <Icon Value="0"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <VersionInfo>
+      <StringTable ProductVersion=""/>
+    </VersionInfo>
+    <BuildModes Count="1">
+      <Item1 Name="Default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="1">
+      <Item1>
+        <PackageName Value="LCL"/>
+      </Item1>
+    </RequiredPackages>
+    <Units Count="22">
+      <Unit0>
+        <Filename Value="small_ce.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="small_ce"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmCE"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="Main"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="autoassembler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="autoassembler"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="Assemblerunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Assemblerunit"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="CEFuncProc.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="CEFuncProc"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="ProcessHandlerUnit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ProcessHandlerUnit"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="byteinterpreter.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="byteinterpreter"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="symbolhandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="symbolhandler"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="symbollisthandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SymbolListHandler"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="cvconst.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="cvconst"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="savedscanhandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="savedscanhandler"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="CustomTypeHandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="CustomTypeHandler"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="fileaccess.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="fileaccess"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="Filehandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Filehandler"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="hypermode.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="hypermode"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="PEInfoFunctions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="PEInfoFunctions"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="FileMapping.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="FileMapping"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="PEInfounit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="PEInfounit"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="MemoryRecordUnit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MemoryRecordUnit"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="hotkeyhandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="HotkeyHandler"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="genericHotkey.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="genericHotkey"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="memoryrecorddatabase.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MemoryRecordDatabase"/>
+      </Unit21>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="small_ce"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerMessages>
+        <MsgFileName Value=""/>
+      </CompilerMessages>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

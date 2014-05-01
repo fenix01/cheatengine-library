@@ -1,0 +1,590 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="61">
+      <Unit0>
+        <Filename Value="small_ce.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="small_ce"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="107" Y="3"/>
+        <UsageCount Value="113"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="main.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fmCE"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="Main"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="351"/>
+        <CursorPos X="94" Y="352"/>
+        <UsageCount Value="113"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="autoassembler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="autoassembler"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1355"/>
+        <CursorPos X="56" Y="1398"/>
+        <UsageCount Value="113"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="Assemblerunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Assemblerunit"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="26" Y="6"/>
+        <UsageCount Value="113"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="CEFuncProc.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="CEFuncProc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="106"/>
+        <CursorPos X="11" Y="120"/>
+        <UsageCount Value="113"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="ProcessHandlerUnit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ProcessHandlerUnit"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="13"/>
+        <CursorPos X="1" Y="50"/>
+        <UsageCount Value="113"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="byteinterpreter.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="byteinterpreter"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="33" Y="18"/>
+        <UsageCount Value="113"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="symbolhandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="symbolhandler"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="567"/>
+        <CursorPos X="14" Y="130"/>
+        <FoldState Value=" T3sD0k/"/>
+        <UsageCount Value="113"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="symbollisthandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SymbolListHandler"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="54" Y="11"/>
+        <UsageCount Value="113"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="cvconst.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="cvconst"/>
+        <UsageCount Value="113"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="savedscanhandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="savedscanhandler"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="50"/>
+        <CursorPos X="40" Y="69"/>
+        <UsageCount Value="113"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="CustomTypeHandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="CustomTypeHandler"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="401"/>
+        <CursorPos X="1" Y="407"/>
+        <UsageCount Value="113"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="fileaccess.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="fileaccess"/>
+        <UsageCount Value="113"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="Filehandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Filehandler"/>
+        <UsageCount Value="112"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="hypermode.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="hypermode"/>
+        <UsageCount Value="112"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="PEInfoFunctions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="PEInfoFunctions"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="34"/>
+        <CursorPos X="6" Y="152"/>
+        <UsageCount Value="111"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="FileMapping.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="FileMapping"/>
+        <UsageCount Value="110"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="PEInfounit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="PEInfounit"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="36" Y="10"/>
+        <UsageCount Value="104"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="MemoryRecordUnit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MemoryRecordUnit"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="233"/>
+        <CursorPos X="6" Y="241"/>
+        <UsageCount Value="70"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="hotkeyhandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="HotkeyHandler"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="60" Y="7"/>
+        <UsageCount Value="70"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="genericHotkey.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="genericHotkey"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="52" Y="45"/>
+        <UsageCount Value="70"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="memoryrecorddatabase.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MemoryRecordDatabase"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="171"/>
+        <CursorPos X="1" Y="116"/>
+        <UsageCount Value="69"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="api.pas"/>
+        <ComponentName Value="formApi"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="api"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="66" Y="5"/>
+        <UsageCount Value="69"/>
+        <Loaded Value="True"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="NewKernelHandler.pas"/>
+        <UnitName Value="NewKernelHandler"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="4"/>
+        <UsageCount Value="98"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="DriverList.pas"/>
+        <UnitName Value="DriverList"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="28"/>
+        <CursorPos X="18" Y="80"/>
+        <UsageCount Value="98"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="driverlist.lrs"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="96"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="peinfo.pas"/>
+        <UnitName Value="PEInfo"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="27" Y="37"/>
+        <UsageCount Value="17"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="dbk32\DBK32functions.pas"/>
+        <UnitName Value="DBK32functions"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1992"/>
+        <CursorPos X="11" Y="2063"/>
+        <UsageCount Value="17"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="dbk32\debug.pas"/>
+        <UnitName Value="debug"/>
+        <UsageCount Value="17"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="dbk32\multicpuexecution.pas"/>
+        <UnitName Value="multicpuexecution"/>
+        <UsageCount Value="17"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="dbk32\vmxfunctions.pas"/>
+        <UnitName Value="vmxfunctions"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="107"/>
+        <CursorPos X="63" Y="123"/>
+        <UsageCount Value="17"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="LuaHandler.pas"/>
+        <UnitName Value="LuaHandler"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2"/>
+        <CursorPos X="13" Y="18"/>
+        <UsageCount Value="15"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="disassembler.pas"/>
+        <UnitName Value="disassembler"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="165"/>
+        <CursorPos X="20" Y="181"/>
+        <UsageCount Value="16"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="plugin.pas"/>
+        <UnitName Value="plugin"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="719"/>
+        <CursorPos X="5" Y="876"/>
+        <UsageCount Value="15"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="SaveFirstScan.pas"/>
+        <UnitName Value="SaveFirstScan"/>
+        <UsageCount Value="15"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="groupscancommandparser.pas"/>
+        <UnitName Value="groupscancommandparser"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="53" Y="12"/>
+        <UsageCount Value="15"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="simpleaobscanner.pas"/>
+        <UnitName Value="simpleaobscanner"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="15" Y="11"/>
+        <UsageCount Value="15"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="memscan.pas"/>
+        <UnitName Value="memscan"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="303"/>
+        <CursorPos X="25" Y="606"/>
+        <FoldState Value=" T7VDq1d"/>
+        <UsageCount Value="14"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="foundlisthelper.pas"/>
+        <UnitName Value="foundlisthelper"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="71"/>
+        <CursorPos X="63" Y="89"/>
+        <UsageCount Value="14"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="C:\lazarus\components\lazutils\lazfileutils.pas"/>
+        <UnitName Value="LazFileUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="3"/>
+        <CursorPos X="36" Y="35"/>
+        <UsageCount Value="4"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="DBK64SecondaryLoader.pas"/>
+        <UnitName Value="DBK64SecondaryLoader"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="36" Y="15"/>
+        <UsageCount Value="14"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="ManualModuleLoader.pas"/>
+        <UnitName Value="ManualModuleLoader"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="22"/>
+        <CursorPos X="21" Y="206"/>
+        <UsageCount Value="14"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\objpas\sysutils\systhrdh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="19"/>
+        <CursorPos X="30" Y="27"/>
+        <UsageCount Value="4"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\inc\objpash.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="178"/>
+        <CursorPos X="23" Y="192"/>
+        <UsageCount Value="12"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="C:\lazarus\lcl\include\treeview.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="373"/>
+        <CursorPos X="1" Y="387"/>
+        <UsageCount Value="8"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="3251"/>
+        <CursorPos X="1" Y="3264"/>
+        <UsageCount Value="15"/>
+      </Unit45>
+      <Unit46>
+        <Filename Value="C:\lazarus\lcl\include\customlistbox.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="549"/>
+        <CursorPos X="1" Y="572"/>
+        <UsageCount Value="13"/>
+      </Unit46>
+      <Unit47>
+        <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\win\wininc\struct.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="3" Y="7333"/>
+        <UsageCount Value="5"/>
+      </Unit47>
+      <Unit48>
+        <Filename Value="..\Cheat Engine\NewKernelHandler.pas"/>
+        <UnitName Value="NewKernelHandler"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="829"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit48>
+      <Unit49>
+        <Filename Value="C:\lazarus\fpc\2.6.2\source\rtl\win\wininc\redef.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="561"/>
+        <CursorPos X="10" Y="577"/>
+        <UsageCount Value="12"/>
+      </Unit49>
+      <Unit50>
+        <Filename Value="..\Cheat Engine\autoassembler.pas"/>
+        <UnitName Value="autoassembler"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1345"/>
+        <CursorPos X="164" Y="1357"/>
+        <UsageCount Value="12"/>
+      </Unit50>
+      <Unit51>
+        <Filename Value="..\Cheat Engine\CEFuncProc.pas"/>
+        <UnitName Value="CEFuncProc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1046"/>
+        <CursorPos X="3" Y="1062"/>
+        <UsageCount Value="12"/>
+      </Unit51>
+      <Unit52>
+        <Filename Value="..\..\cheatengine\Cheat Engine\autoassembler.pas"/>
+        <UnitName Value="autoassembler"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="47" Y="6"/>
+        <UsageCount Value="10"/>
+      </Unit52>
+      <Unit53>
+        <Filename Value="J:\lazarus\lcl\include\control.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2699"/>
+        <CursorPos X="1" Y="2719"/>
+        <UsageCount Value="10"/>
+      </Unit53>
+      <Unit54>
+        <Filename Value="J:\lazarus\lcl\include\buttoncontrol.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="7"/>
+        <CursorPos X="1" Y="22"/>
+        <UsageCount Value="10"/>
+      </Unit54>
+      <Unit55>
+        <Filename Value="J:\lazarus\lcl\include\buttons.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="321"/>
+        <CursorPos X="1" Y="356"/>
+        <UsageCount Value="10"/>
+      </Unit55>
+      <Unit56>
+        <Filename Value="J:\lazarus\fpc\2.6.2\source\rtl\win\wininc\ascdef.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="39" Y="64"/>
+        <UsageCount Value="10"/>
+      </Unit56>
+      <Unit57>
+        <Filename Value="J:\lazarus\fpc\2.6.2\source\rtl\win\wininc\base.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="152"/>
+        <CursorPos X="6" Y="243"/>
+        <UsageCount Value="10"/>
+      </Unit57>
+      <Unit58>
+        <Filename Value="J:\lazarus\fpc\2.6.2\source\packages\winunits-base\src\imagehlp.pp"/>
+        <UnitName Value="imagehlp"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1385"/>
+        <CursorPos X="35" Y="1417"/>
+        <UsageCount Value="10"/>
+      </Unit58>
+      <Unit59>
+        <Filename Value="J:\lazarus\lcl\lclintf.pas"/>
+        <UnitName Value="LCLIntf"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="11"/>
+      </Unit59>
+      <Unit60>
+        <Filename Value="J:\lazarus\fpc\2.6.2\source\rtl\win\wininc\struct.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="6" Y="6619"/>
+        <UsageCount Value="10"/>
+      </Unit60>
+    </Units>
+    <General>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <JumpHistory Count="13" HistoryIndex="12">
+      <Position1>
+        <Filename Value="main.pas"/>
+        <Caret Line="56" Column="62" TopLine="49"/>
+      </Position1>
+      <Position2>
+        <Filename Value="main.pas"/>
+        <Caret Line="319" Column="117" TopLine="309"/>
+      </Position2>
+      <Position3>
+        <Filename Value="main.pas"/>
+        <Caret Line="354" Column="3" TopLine="350"/>
+      </Position3>
+      <Position4>
+        <Filename Value="main.pas"/>
+        <Caret Line="38" Column="15" TopLine="34"/>
+      </Position4>
+      <Position5>
+        <Filename Value="main.pas"/>
+        <Caret Line="343" Column="43" TopLine="296"/>
+      </Position5>
+      <Position6>
+        <Filename Value="main.pas"/>
+        <Caret Line="320" Column="11" TopLine="304"/>
+      </Position6>
+      <Position7>
+        <Filename Value="main.pas"/>
+        <Caret Line="318" Column="23" TopLine="304"/>
+      </Position7>
+      <Position8>
+        <Filename Value="main.pas"/>
+        <Caret Line="355" Column="94" TopLine="354"/>
+      </Position8>
+      <Position9>
+        <Filename Value="main.pas"/>
+        <Caret Line="354" Column="94" TopLine="353"/>
+      </Position9>
+      <Position10>
+        <Filename Value="main.pas"/>
+        <Caret Line="353" Column="94" TopLine="352"/>
+      </Position10>
+      <Position11>
+        <Filename Value="main.pas"/>
+        <Caret Line="352" Column="94" TopLine="351"/>
+      </Position11>
+      <Position12>
+        <Filename Value="api.pas"/>
+        <Caret Line="8" Column="48" TopLine="1"/>
+      </Position12>
+      <Position13>
+        <Filename Value="api.pas"/>
+        <Caret Line="9" Column="79" TopLine="1"/>
+      </Position13>
+    </JumpHistory>
+  </ProjectSession>
+  <Debugging>
+    <BreakPoints Count="4">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="api.pas"/>
+        <Line Value="154"/>
+      </Item1>
+      <Item2>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="..\Cheat Engine\autoassembler.pas"/>
+        <Line Value="1399"/>
+      </Item2>
+      <Item3>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="PEInfounit.pas"/>
+        <Line Value="422"/>
+      </Item3>
+      <Item4>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="main.pas"/>
+        <Line Value="333"/>
+      </Item4>
+    </BreakPoints>
+    <Watches Count="1">
+      <Item1>
+        <Expression Value="importaddress"/>
+      </Item1>
+    </Watches>
+  </Debugging>
+</CONFIG>

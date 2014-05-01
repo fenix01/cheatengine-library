@@ -1,0 +1,154 @@
+object fmCE: TfmCE
+  Left = 1190
+  Height = 503
+  Top = 348
+  Width = 516
+  Caption = 'Mini CE'
+  ClientHeight = 503
+  ClientWidth = 516
+  OnClose = FormClose
+  OnCreate = FormCreate
+  LCLVersion = '1.0.12.0'
+  object Panel1: TPanel
+    Left = 0
+    Height = 357
+    Top = 146
+    Width = 216
+    Align = alLeft
+    Caption = 'Panel1'
+    ClientHeight = 357
+    ClientWidth = 216
+    TabOrder = 0
+    object ltProcess: TListBox
+      Left = 1
+      Height = 330
+      Top = 26
+      Width = 214
+      Align = alClient
+      ItemHeight = 0
+      OnClick = ltProcessClick
+      TabOrder = 0
+    end
+    object btnProcess: TButton
+      Left = 1
+      Height = 25
+      Top = 1
+      Width = 214
+      Align = alTop
+      Caption = 'Lister les processus'
+      OnClick = btnProcessClick
+      TabOrder = 1
+    end
+  end
+  object Panel2: TPanel
+    Left = 221
+    Height = 357
+    Top = 146
+    Width = 295
+    Align = alRight
+    Caption = 'Panel2'
+    ClientHeight = 357
+    ClientWidth = 295
+    TabOrder = 1
+    object memoScript: TMemo
+      Left = 1
+      Height = 307
+      Top = 49
+      Width = 293
+      Align = alClient
+      ScrollBars = ssAutoBoth
+      TabOrder = 0
+      WordWrap = False
+    end
+    object btnAddScript: TButton
+      Left = 1
+      Height = 25
+      Top = 1
+      Width = 293
+      Align = alTop
+      Caption = 'Ajouter le script'
+      OnClick = btnAddScriptClick
+      TabOrder = 1
+    end
+    object edtName: TEdit
+      Left = 1
+      Height = 23
+      Top = 26
+      Width = 293
+      Align = alTop
+      TabOrder = 2
+      Text = 'Nom'
+    end
+  end
+  object pnlControl: TPanel
+    Left = 0
+    Height = 146
+    Top = 0
+    Width = 516
+    Align = alTop
+    ClientHeight = 146
+    ClientWidth = 516
+    TabOrder = 2
+    object chkScripts: TCheckGroup
+      Left = 221
+      Height = 144
+      Top = 1
+      Width = 294
+      Align = alRight
+      AutoFill = True
+      Caption = 'Table des scripts'
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.TopBottomSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
+      OnItemClick = chkScriptsItemClick
+      OnMouseDown = chkScriptsMouseDown
+      TabOrder = 0
+    end
+    object GroupBox1: TGroupBox
+      Left = 1
+      Height = 144
+      Top = 1
+      Width = 216
+      Align = alLeft
+      Caption = 'Information sur le processus'
+      ClientHeight = 126
+      ClientWidth = 212
+      TabOrder = 1
+      object Label1: TLabel
+        Left = 13
+        Height = 16
+        Top = 7
+        Width = 34
+        Caption = 'Nom :'
+        ParentColor = False
+      end
+      object lblNom: TLabel
+        Left = 69
+        Height = 1
+        Top = 7
+        Width = 1
+        ParentColor = False
+      end
+      object Label3: TLabel
+        Left = 13
+        Height = 16
+        Top = 31
+        Width = 25
+        Caption = 'PID :'
+        ParentColor = False
+      end
+      object lblPID: TLabel
+        Left = 69
+        Height = 1
+        Top = 31
+        Width = 1
+        ParentColor = False
+      end
+    end
+  end
+end
