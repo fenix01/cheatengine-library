@@ -304,7 +304,7 @@ var
 begin
   if recordTable = nil then
   begin
-    showmessage('vous devez ouvrir un processus !');
+    showmessage('You have to opened a process first !');
   end
   else
   begin
@@ -317,13 +317,6 @@ end;
 procedure TfmCE.btnProcessClick(Sender: TObject);
 begin
   GetProcessList(ltProcess,false);
-end;
-
-procedure TfmCE.Button2Click(Sender: TObject);
-begin
-  formApi := TformApi.Create(Self);
-  formApi.ShowModal;
-  formApi.Destroy;
 end;
 
 procedure TfmCE.chkScriptsItemClick(Sender: TObject; Index: integer);
@@ -345,12 +338,6 @@ begin
   end;
 end;
 
-procedure TfmCE.chkScriptsMouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-
-end;
-
 procedure TfmCE.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   recordTable.Free;
@@ -369,7 +356,7 @@ begin
   begin
     recordTable.Free;
     chkScripts.Items.Clear;
-    edtName.Caption:= 'Nom';
+    edtName.Caption:= 'Name';
     memoScript.Clear;
     recordTable := TMemoryRecordTable.Create();
   end
