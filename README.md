@@ -21,3 +21,7 @@ Fonctionnalités :
     READMEM
     LOADLIBRARY
 
+Comment compiler l'exemple ?
+
+Copier tous les fichiers du dossier library dans le dossier exemple et compiler small_ce. C'est un petit programme pour vous montrer comment injecter des scripts dans des processus.
+
