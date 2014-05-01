@@ -1,16 +1,13 @@
 cheatengine-library
 ===================
 
-Cheat Engine Library est une librairie issue du logiciel Cheat Engine que vous pouvez retrouver à cette addresse. http://cheatengine.org/aboutce.php
+Cheat Engine Library is a small library based on Cheat Engine a powerfull memory editing software. You may found it here http://cheatengine.org/
 
-Le but est de proposer toutes les fonctionnalités de Cheat Engine en se passant de l'interface graphique. Vous pourrez donc l'intégrer dans n'importe lequel de vos projets pour injecter des scripts etc...
+The first goal of this project is to give you the ability to make your own software with advanced features like auto assemble, dll injections, etc. You may be able to embed cheat engine library in a dll or anything else and avoid common detections.
 
-Cette première version de Cheat Engine propose la fonctionnalité d'injection de script assembleur.
-Tous les symboles ne sont pas inclus mais vous pouvez utiliser la pluspart d'entre eux.
-
-Fonctionnalités :
-- injection de scripts assembleurs
-- symboles pris en compte : 
+Features :
+- inject asm scripts
+- only a few symbols are support : 
     ALLOC
     DEALLOC
     LABEL
@@ -21,7 +18,7 @@ Fonctionnalités :
     READMEM
     LOADLIBRARY
 
-Comment compiler l'exemple ?
+How to compile ?
 
-Copier tous les fichiers du dossier library dans le dossier exemple et compiler small_ce. C'est un petit programme pour vous montrer comment injecter des scripts dans des processus.
-
+- Download Lazarus 64 bits
+- Copy the library and the exemple directory and compile
