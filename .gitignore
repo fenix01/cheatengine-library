@@ -6,3 +6,11 @@
 ./example/c++/x64/
 ./dll/backup/
 ./dll/lib
+*.o
+*.ppu
+*.rst
+*.obj
+*.log
+*.compiled
+*.res
+*.a

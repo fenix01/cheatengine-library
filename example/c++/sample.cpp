@@ -30,7 +30,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	wcout << pid << "\r\n";
 	iOpenProcess(pid);//open running process by pid
 
-	//add a script to the 
+	//add a script to the virtual table
 	BSTR name = ::SysAllocString(L"example");//name of the script
 
 	//Don't try to run this script or you will get an exception.
@@ -56,9 +56,13 @@ int _tmain(int argc, _TCHAR* argv[])
 		L"0042434C :\r\n"
 		L"db 49 4C EB 76\r\n"
 		L"dealloc(hook)");//the auto assemble script
+	//add the script
 	iAddScript(name, script);
+	//remove the script with index 0 in the virtual table
 	iRemoveScript(0);
+	//add a script
 	iAddScript(name, script);
+	//activate the script
 	iActivateScript(0, true);
 
 	system("PAUSE");
