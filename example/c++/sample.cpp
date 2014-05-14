@@ -10,7 +10,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//load the cheat engine library
 	HINSTANCE libInst;
 
-	//don't forget to put the dll the same directory
+	//don't forget to put the dll in the same directory
 #ifdef _WIN64
 	libInst = LoadLibraryW(L"ce-lib64.dll");
 #else
