@@ -1,0 +1,302 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="28">
+      <Unit0>
+        <Filename Value="ce_lib.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ce_lib"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2"/>
+        <CursorPos X="69" Y="9"/>
+        <FoldState Value=" T3C0{\q"/>
+        <UsageCount Value="34"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="Assemblerunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Assemblerunit"/>
+        <UsageCount Value="34"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="autoassembler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="autoassembler"/>
+        <UsageCount Value="34"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="byteinterpreter.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="byteinterpreter"/>
+        <UsageCount Value="34"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="CEFuncProc.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="CEFuncProc"/>
+        <UsageCount Value="34"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="CustomTypeHandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="CustomTypeHandler"/>
+        <UsageCount Value="34"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="cvconst.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="cvconst"/>
+        <UsageCount Value="34"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="driverlist.lrs"/>
+        <IsPartOfProject Value="True"/>
+        <UsageCount Value="34"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="DriverList.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="DriverList"/>
+        <UsageCount Value="34"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="fileaccess.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="fileaccess"/>
+        <UsageCount Value="34"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="Filehandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Filehandler"/>
+        <UsageCount Value="34"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="FileMapping.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="FileMapping"/>
+        <UsageCount Value="34"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="genericHotkey.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="genericHotkey"/>
+        <UsageCount Value="34"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="hotkeyhandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="HotkeyHandler"/>
+        <UsageCount Value="34"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="hypermode.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="hypermode"/>
+        <UsageCount Value="34"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="memoryrecorddatabase.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MemoryRecordDatabase"/>
+        <UsageCount Value="34"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="MemoryRecordUnit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MemoryRecordUnit"/>
+        <UsageCount Value="34"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="NewKernelHandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NewKernelHandler"/>
+        <UsageCount Value="34"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="PEInfounit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="PEInfounit"/>
+        <UsageCount Value="34"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="ProcessHandlerUnit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ProcessHandlerUnit"/>
+        <UsageCount Value="34"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="savedscanhandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="savedscanhandler"/>
+        <UsageCount Value="34"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="symbolhandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="symbolhandler"/>
+        <UsageCount Value="34"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="symbollisthandler.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="SymbolListHandler"/>
+        <UsageCount Value="34"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="handshake.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="handshake"/>
+        <UsageCount Value="34"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="..\library\PEInfounit.pas"/>
+        <UnitName Value="PEInfounit"/>
+        <EditorIndex Value="4"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="43"/>
+        <CursorPos X="15" Y="53"/>
+        <UsageCount Value="16"/>
+        <Loaded Value="True"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="connector.pas"/>
+        <UnitName Value="connector"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="51" Y="17"/>
+        <FoldState Value=" T3P0l1231121@"/>
+        <UsageCount Value="16"/>
+        <Loaded Value="True"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="..\library\CEFuncProc.pas"/>
+        <UnitName Value="CEFuncProc"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2134"/>
+        <CursorPos X="98" Y="2141"/>
+        <UsageCount Value="15"/>
+        <Loaded Value="True"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="..\library\memoryrecorddatabase.pas"/>
+        <UnitName Value="MemoryRecordDatabase"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="180"/>
+        <CursorPos X="29" Y="200"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit27>
+    </Units>
+    <General>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <JumpHistory Count="24" HistoryIndex="23">
+      <Position1>
+        <Filename Value="..\library\PEInfounit.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position1>
+      <Position2>
+        <Filename Value="ce_lib.lpr"/>
+        <Caret Line="1" Column="41" TopLine="1"/>
+      </Position2>
+      <Position3>
+        <Filename Value="connector.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position3>
+      <Position4>
+        <Filename Value="connector.pas"/>
+        <Caret Line="17" Column="59" TopLine="1"/>
+      </Position4>
+      <Position5>
+        <Filename Value="connector.pas"/>
+        <Caret Line="122" Column="20" TopLine="13"/>
+      </Position5>
+      <Position6>
+        <Filename Value="connector.pas"/>
+        <Caret Line="125" Column="6" TopLine="22"/>
+      </Position6>
+      <Position7>
+        <Filename Value="connector.pas"/>
+        <Caret Line="144" Column="34" TopLine="129"/>
+      </Position7>
+      <Position8>
+        <Filename Value="connector.pas"/>
+        <Caret Line="146" Column="23" TopLine="129"/>
+      </Position8>
+      <Position9>
+        <Filename Value="ce_lib.lpr"/>
+        <Caret Line="4" Column="35" TopLine="11"/>
+      </Position9>
+      <Position10>
+        <Filename Value="connector.pas"/>
+        <Caret Line="172" Column="37" TopLine="97"/>
+      </Position10>
+      <Position11>
+        <Filename Value="connector.pas"/>
+        <Caret Line="107" Column="11" TopLine="97"/>
+      </Position11>
+      <Position12>
+        <Filename Value="..\library\CEFuncProc.pas"/>
+        <Caret Line="134" Column="23" TopLine="124"/>
+      </Position12>
+      <Position13>
+        <Filename Value="connector.pas"/>
+        <Caret Line="107" Column="11" TopLine="115"/>
+      </Position13>
+      <Position14>
+        <Filename Value="connector.pas"/>
+        <Caret Line="97" Column="11" TopLine="116"/>
+      </Position14>
+      <Position15>
+        <Filename Value="connector.pas"/>
+        <Caret Line="148" Column="12" TopLine="109"/>
+      </Position15>
+      <Position16>
+        <Filename Value="connector.pas"/>
+        <Caret Line="175" Column="48" TopLine="144"/>
+      </Position16>
+      <Position17>
+        <Filename Value="connector.pas"/>
+        <Caret Line="21" Column="3" TopLine="1"/>
+      </Position17>
+      <Position18>
+        <Filename Value="..\library\memoryrecorddatabase.pas"/>
+        <Caret Line="200" Column="17" TopLine="180"/>
+      </Position18>
+      <Position19>
+        <Filename Value="..\library\memoryrecorddatabase.pas"/>
+        <Caret Line="24" Column="27" TopLine="8"/>
+      </Position19>
+      <Position20>
+        <Filename Value="..\library\memoryrecorddatabase.pas"/>
+        <Caret Line="200" Column="23" TopLine="180"/>
+      </Position20>
+      <Position21>
+        <Filename Value="..\library\memoryrecorddatabase.pas"/>
+        <Caret Line="201" Column="6" TopLine="180"/>
+      </Position21>
+      <Position22>
+        <Filename Value="..\library\memoryrecorddatabase.pas"/>
+        <Caret Line="33" Column="14" TopLine="19"/>
+      </Position22>
+      <Position23>
+        <Filename Value="connector.pas"/>
+        <Caret Line="21" Column="3" TopLine="1"/>
+      </Position23>
+      <Position24>
+        <Filename Value="ce_lib.lpr"/>
+        <Caret Line="177" Column="14" TopLine="1"/>
+      </Position24>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>

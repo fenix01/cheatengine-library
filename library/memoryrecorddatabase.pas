@@ -27,6 +27,7 @@ public
   procedure ReinterpretAddresses;
   function GetUniqueMemrecId: integer;
   function GetCount: integer;
+  procedure RemoveRecord(id : integer);
   property MemRecItems[Index: Integer]: TMemoryRecord read GetMemRecItemByIndex; default;
   constructor Create();
   destructor Destroy();
@@ -189,6 +190,15 @@ begin
       result:=MemRecItems[i];
       exit;
     end;
+end;
+
+procedure TMemoryRecordTable.RemoveRecord(id : integer);
+var
+  memrec: TMemoryRecord;
+begin
+  memrec := getRecordWithID(id);
+  if (Assigned(memrec)) then
+     records.Remove(memrec);
 end;
 
 destructor TMemoryRecordTable.Destroy();

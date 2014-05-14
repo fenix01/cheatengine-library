@@ -1,2 +1,8 @@
 *.bak
 *.exe
+*.dll
+./library/backup/
+./example/c++/x64/
+./example/c++/x64/
+./dll/backup/
+./dll/lib
