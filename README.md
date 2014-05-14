@@ -22,7 +22,7 @@ Features :
 What's new ?
 
 1.0.0 :
-- added the compile library in the release page
+- added the compiled library in the release page
 - added a dll directory for anyone who wants to customize by himself this dll
 - added a wrapper directory that contains headers for various programming languages. (c++, and delphi for now)
 - added a c++ example to call the dll
