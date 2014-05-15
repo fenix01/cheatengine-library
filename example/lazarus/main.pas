@@ -7,8 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, ComCtrls, CEFuncProc, windows, autoassembler, symbolhandler,
-  PEInfounit, StrUtils, MemoryRecordUnit,MemoryRecordDatabase, PEInfoFunctions,
-  Api;
+  PEInfounit, StrUtils, MemoryRecordUnit,MemoryRecordDatabase, PEInfoFunctions;
 
 type
 
@@ -31,10 +30,7 @@ type
     pnlControl: TPanel;
     procedure btnAddScriptClick(Sender: TObject);
     procedure btnProcessClick(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
     procedure chkScriptsItemClick(Sender: TObject; Index: integer);
-    procedure chkScriptsMouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure ltProcessClick(Sender: TObject);

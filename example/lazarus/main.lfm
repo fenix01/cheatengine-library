@@ -106,7 +106,6 @@ object fmCE: TfmCE
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 1
       OnItemClick = chkScriptsItemClick
-      OnMouseDown = chkScriptsMouseDown
       TabOrder = 0
     end
     object GroupBox1: TGroupBox
