@@ -14,3 +14,7 @@
 *.compiled
 *.res
 *.a
+*.dcu
+*.rsm
+/example/delphi/__history/
+/wrapper/delphi/__history/
