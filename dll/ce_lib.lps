@@ -9,7 +9,6 @@
         <Filename Value="ce_lib.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ce_lib"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2"/>
@@ -168,9 +167,10 @@
       <Unit25>
         <Filename Value="connector.pas"/>
         <UnitName Value="connector"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <TopLine Value="4"/>
         <CursorPos X="51" Y="17"/>
         <FoldState Value=" T3P0l1231121@"/>
         <UsageCount Value="16"/>
@@ -200,7 +200,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="24" HistoryIndex="23">
+    <JumpHistory Count="21" HistoryIndex="20">
       <Position1>
         <Filename Value="..\library\PEInfounit.pas"/>
         <Caret Line="1" Column="1" TopLine="1"/>
@@ -234,69 +234,57 @@
         <Caret Line="146" Column="23" TopLine="129"/>
       </Position8>
       <Position9>
-        <Filename Value="ce_lib.lpr"/>
-        <Caret Line="4" Column="35" TopLine="11"/>
+        <Filename Value="connector.pas"/>
+        <Caret Line="172" Column="37" TopLine="97"/>
       </Position9>
       <Position10>
         <Filename Value="connector.pas"/>
-        <Caret Line="172" Column="37" TopLine="97"/>
+        <Caret Line="107" Column="11" TopLine="97"/>
       </Position10>
       <Position11>
-        <Filename Value="connector.pas"/>
-        <Caret Line="107" Column="11" TopLine="97"/>
-      </Position11>
-      <Position12>
         <Filename Value="..\library\CEFuncProc.pas"/>
         <Caret Line="134" Column="23" TopLine="124"/>
+      </Position11>
+      <Position12>
+        <Filename Value="connector.pas"/>
+        <Caret Line="148" Column="12" TopLine="109"/>
       </Position12>
       <Position13>
         <Filename Value="connector.pas"/>
-        <Caret Line="107" Column="11" TopLine="115"/>
+        <Caret Line="175" Column="48" TopLine="144"/>
       </Position13>
       <Position14>
         <Filename Value="connector.pas"/>
-        <Caret Line="97" Column="11" TopLine="116"/>
+        <Caret Line="21" Column="3" TopLine="1"/>
       </Position14>
       <Position15>
-        <Filename Value="connector.pas"/>
-        <Caret Line="148" Column="12" TopLine="109"/>
+        <Filename Value="..\library\memoryrecorddatabase.pas"/>
+        <Caret Line="200" Column="17" TopLine="180"/>
       </Position15>
       <Position16>
-        <Filename Value="connector.pas"/>
-        <Caret Line="175" Column="48" TopLine="144"/>
+        <Filename Value="..\library\memoryrecorddatabase.pas"/>
+        <Caret Line="24" Column="27" TopLine="8"/>
       </Position16>
       <Position17>
-        <Filename Value="connector.pas"/>
-        <Caret Line="21" Column="3" TopLine="1"/>
+        <Filename Value="..\library\memoryrecorddatabase.pas"/>
+        <Caret Line="200" Column="23" TopLine="180"/>
       </Position17>
       <Position18>
         <Filename Value="..\library\memoryrecorddatabase.pas"/>
-        <Caret Line="200" Column="17" TopLine="180"/>
+        <Caret Line="201" Column="6" TopLine="180"/>
       </Position18>
       <Position19>
         <Filename Value="..\library\memoryrecorddatabase.pas"/>
-        <Caret Line="24" Column="27" TopLine="8"/>
+        <Caret Line="33" Column="14" TopLine="19"/>
       </Position19>
       <Position20>
-        <Filename Value="..\library\memoryrecorddatabase.pas"/>
-        <Caret Line="200" Column="23" TopLine="180"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\library\memoryrecorddatabase.pas"/>
-        <Caret Line="201" Column="6" TopLine="180"/>
-      </Position21>
-      <Position22>
-        <Filename Value="..\library\memoryrecorddatabase.pas"/>
-        <Caret Line="33" Column="14" TopLine="19"/>
-      </Position22>
-      <Position23>
         <Filename Value="connector.pas"/>
         <Caret Line="21" Column="3" TopLine="1"/>
-      </Position23>
-      <Position24>
+      </Position20>
+      <Position21>
         <Filename Value="ce_lib.lpr"/>
         <Caret Line="177" Column="14" TopLine="1"/>
-      </Position24>
+      </Position21>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

@@ -5,7 +5,7 @@ interface
 uses windows;
 
 type
-  TGetProcessList = function(): WideString; stdcall;
+  TGetProcessList = procedure(out processes : WideString); stdcall;
   TOpenProcess = procedure(pid: WideString); stdcall;
   TResetScripts = procedure(); stdcall;
   TAddScript = procedure(name: WideString; script: WideString); stdcall;
