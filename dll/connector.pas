@@ -6,17 +6,23 @@ interface
 
 uses
   Classes, SysUtils, symbolhandler, CEFuncProc, windows, PEInfounit,
-  MemoryRecordDatabase, MemoryRecordUnit, Dialogs;
+  MemoryRecordDatabase, MemoryRecordUnit, Dialogs, AddressChangeUnit,
+  memscan;
 
 //procedure ILoadCommonModuleList; stdcall;
 procedure IGetProcessList(out processes : WideString);stdcall;
 //procedure IGetModuleList(withSystemModules: boolean ; out modules : WideString);stdcall;
 procedure IOpenProcess(pid : WideString);stdcall;
+
+//control the virtual cheat table
 procedure IResetScripts();stdcall;
 procedure IAddScript(name : WideString; script : WideString);stdcall;
 procedure IRemoveScript(id : integer); stdcall;
 procedure IActivateScript(id : integer; activate : boolean);stdcall;
 
+//control an address from the virtual cheat table
+procedure IAddAddressManually(initialaddress: WideString=''; vartype: TVariableType=vtDword);stdcall;
+procedure IGetValue(id : integer ; out value : WideString);stdcall;
 
 var
   recordTable : TMemoryRecordTable;
@@ -191,6 +197,26 @@ begin
   else
      recordTable.DeactivateSelected;
 end;
+
+procedure IAddAddressManually(initialaddress: WideString=''; vartype: TVariableType=vtDword);stdcall;
+var
+  memrec : TMemoryRecord;
+begin
+  if recordTable <> nil then
+    begin
+      recordTable.addAddressManually(initialaddress,vartype);
+    end;
+end;
+
+procedure IGetValue(id : integer ; out value : WideString);stdcall;
+var
+  memrec : TMemoryRecord;
+begin
+    memrec := recordTable.getRecordWithID(id);
+    value := memrec.GetValue;
+end;
+
+
 
 end.
 

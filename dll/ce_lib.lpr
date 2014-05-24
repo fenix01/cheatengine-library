@@ -3,11 +3,12 @@ library ce_lib;
 {$mode objfpc}{$H+}
 
 uses
-  windows,Interfaces, SysUtils, Classes, Assemblerunit, autoassembler, byteinterpreter,
-  CEFuncProc, CustomTypeHandler, cvconst, DriverList, fileaccess, Filehandler,
-  FileMapping, genericHotkey, hotkeyhandler, hypermode, memoryrecorddatabase,
-  MemoryRecordUnit, NewKernelHandler, ProcessHandlerUnit, savedscanhandler,
-  symbolhandler, symbollisthandler, PEInfounit, connector
+  windows, Interfaces, SysUtils, Classes, Assemblerunit, autoassembler,
+  byteinterpreter, CEFuncProc, CustomTypeHandler, cvconst, DriverList,
+  fileaccess, Filehandler, FileMapping, genericHotkey, hotkeyhandler, hypermode,
+  memoryrecorddatabase, MemoryRecordUnit, NewKernelHandler, ProcessHandlerUnit,
+  savedscanhandler, symbolhandler, symbollisthandler, PEInfounit, connector,
+  AddressChangeUnit, settings
   { you can add units after this };
 
 procedure AdjustPrivilege();
@@ -171,10 +172,15 @@ Exports
 //IGetModuleList,
 IGetProcessList,
 IOpenProcess,
+
 IResetScripts,
 IAddScript,
 IActivateScript,
-IRemoveScript;
+IRemoveScript,
+
+IAddAddressManually,
+IGetValue,
+IProcessAddress;
 
 {$R *.res}
 

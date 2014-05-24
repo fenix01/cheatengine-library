@@ -5,12 +5,14 @@ unit autoassembler;
 interface
 
 uses jwawindows, windows, Assemblerunit, classes, LCLIntf,symbolhandler,
-     sysutils,dialogs,controls, CEFuncProc, NewKernelHandler;
+     sysutils,dialogs,controls, CEFuncProc, NewKernelHandler,
+     ProcessHandlerUnit;
 
 
 
 function getenableanddisablepos(code:tstrings;var enablepos,disablepos: integer): boolean;
 function autoassemble(code: tstrings;popupmessages: boolean):boolean; overload;
+function autoassemble(code: Tstrings; popupmessages,enable,syntaxcheckonly, targetself: boolean):boolean; overload;
 function autoassemble(code: Tstrings; popupmessages,enable,syntaxcheckonly, targetself: boolean;var CEAllocarray: TCEAllocArray; registeredsymbols: tstringlist=nil): boolean; overload;
 
 implementation
@@ -375,7 +377,7 @@ begin
       if incomment then
       begin
         //inside a comment, remove everything till a } is encountered
-        if (currentline[j]='}') or
+        if ((currentline[j]='}') and (processhandler.SystemArchitecture<>archArm)) or
            ((currentline[j]='*') and (j<length(currentline)) and (currentline[j+1]='/')) then
         begin
           incomment:=false; //and continue parsing the code...
@@ -401,7 +403,7 @@ begin
             break;
           end;
 
-          if (currentline[j]='{') or
+          if ((currentline[j]='{') and (processhandler.SystemArchitecture<>archArm)) or
              ((currentline[j]='/') and (j<length(currentline)) and (currentline[j+1]='*')) then
           begin
             incomment:=true;
@@ -550,7 +552,8 @@ var i,j,k,l,e: integer;
 
     currentaddress: ptrUint;
     assembled: array of tassembled;
-    x,y,op,op2:dword;
+    x: ptruint;
+    y,op,op2:dword;
     ok1,ok2:boolean;
     loadbinary: array of record
       address: string; //string since it might be a label/alloc/define
@@ -583,6 +586,7 @@ var i,j,k,l,e: integer;
     tokens: tstringlist;
     baseaddress: ptrUint;
 
+    multilineinjection: tstringlist;
     include: tstringlist;
     testdword,bw: dword;
     testPtr: ptrUint;
@@ -633,19 +637,22 @@ begin
   begin
     //get this function to use the symbolhandler that's pointing to CE itself and the self processid/handle
     oldhandle:=cefuncproc.ProcessHandle;
-    processhandle:=getcurrentprocess;
     processid:=getcurrentprocessid;
+    processhandle:=getcurrentprocess;
     oldsymhandler:=symhandler;
     symhandler:=selfsymhandler;
     processhandler.processhandle:=processhandle;
   end
   else
   begin
-    processhandle:=cefuncproc.ProcessHandle;
     processid:=cefuncproc.ProcessID;
+    processhandle:=cefuncproc.ProcessHandle;
   end;
 
-  symhandler.waitforsymbolsloaded;
+  symhandler.waitforsymbolsloaded(true);
+
+//{$ifndef standalonetrainer}
+//  if pluginhandler=nil then exit; //Error. Cheat Engine is not properly configured
 
 
 //2 pass scanner
@@ -769,7 +776,8 @@ begin
             setlength(assemblerlines,length(assemblerlines)-1);
             continue;
           end;
-          //otherwhise it hasn't been handled, or it has been handled and the string is a compatible string that passes the phase1 tests (so variablenames converted to 00000000 and whatever else is needed)
+          //otherwise it hasn't been handled, or it has been handled and the string is a compatible string that passes the phase1 tests (so variablenames converted to 00000000 and whatever else is needed)
+
           //plugins^^^
 
           if uppercase(copy(currentline,1,7))='ASSERT(' then //assert(address,aob)
@@ -957,6 +965,40 @@ begin
             end else raise exception.Create(rsWrongSyntaxCreateThreadAddress);
           end;
 
+          if uppercase(copy(currentline,1,12))='LOADLIBRARY(' then
+          begin
+            //load a library into memory , this one already executes BEFORE the 2nd pass to get addressnames correct
+            a:=pos('(',currentline);
+            b:=pos(')',currentline);
+
+            if (a>0) and (b>0) then
+            begin
+              s1:=trim(copy(currentline,a+1,b-a-1));
+
+              if pos(':',s1)=0 then
+              begin
+                s2:=extractfilename(s1);
+
+                if fileexists(cheatenginedir+s2) then s1:=cheatenginedir+s2 else
+                  if fileexists(getcurrentdir+'\'+s2) then s1:=getcurrentdir+'\'+s2 else
+                    if fileexists(cheatenginedir+s1) then s1:=cheatenginedir+s1;
+
+                //else just hope it's in the dll searchpath
+              end; //else direct file path
+
+              try
+                InjectDll(s1,'');
+                symhandler.reinitialize;
+                symhandler.waitforsymbolsloaded
+              except
+                raise exception.create(Format(rsCouldNotBeInjected, [s1]));
+              end;
+
+              setlength(assemblerlines,length(assemblerlines)-1);
+              continue;
+            end else raise exception.Create(rsWrongSyntaxLoadLibraryFilename);
+          end;
+
           if uppercase(copy(currentline,1,8))='READMEM(' then
           begin
             //read memory and place it here (readmem(address,size) )
@@ -1020,40 +1062,6 @@ begin
             end else raise exception.Create(rsWrongSyntaxReadMemAddressSize);
 
             continue;
-          end;
-
-          if uppercase(copy(currentline,1,12))='LOADLIBRARY(' then
-          begin
-            //load a library into memory , this one already executes BEFORE the 2nd pass to get addressnames correct
-            a:=pos('(',currentline);
-            b:=pos(')',currentline);
-
-            if (a>0) and (b>0) then
-            begin
-              s1:=trim(copy(currentline,a+1,b-a-1));
-
-              if pos(':',s1)=0 then
-              begin
-                s2:=extractfilename(s1);
-
-                if fileexists(cheatenginedir+s2) then s1:=cheatenginedir+s2 else
-                  if fileexists(getcurrentdir+'\'+s2) then s1:=getcurrentdir+'\'+s2 else
-                    if fileexists(cheatenginedir+s1) then s1:=cheatenginedir+s1;
-
-                //else just hope it's in the dll searchpath
-              end; //else direct file path
-
-              try
-                InjectDll(s1,'');
-                symhandler.reinitialize;
-                symhandler.waitforsymbolsloaded;
-              except
-                raise exception.create(Format(rsCouldNotBeInjected, [s1]));
-              end;
-
-              setlength(assemblerlines,length(assemblerlines)-1);
-              continue;
-            end else raise exception.Create(rsWrongSyntaxLoadLibraryFilename);
           end;
 
           if uppercase(copy(currentline,1,11))='LOADBINARY(' then
@@ -1617,7 +1625,7 @@ begin
               allocs[j].address:=0;
               while (k>0) and (allocs[j].address=0) do
               begin
-                //try allocating untill a memory region has been found (e.g due to quick allocating by the game)
+                //try allocating until a memory region has been found (e.g due to quick allocating by the game)
                 allocs[j].address:=ptrUint(virtualallocex(processhandle,FindFreeBlockForRegion(prefered,x),x, MEM_RESERVE or MEM_COMMIT,page_execute_readwrite));
                 if allocs[j].address=0 then OutputDebugString(rsFailureToAllocateMemory+' 1');
 
@@ -1715,47 +1723,62 @@ begin
 
       ok1:=false;
       if currentline[length(currentline)]<>':' then //if it's not a definition then
-      for j:=0 to length(labels)-1 do
-        if tokencheck(currentline,labels[j].labelname) then
+      begin
+        for j:=0 to length(labels)-1 do
         begin
-          if not labels[j].defined then
+          if tokencheck(currentline,labels[j].labelname) then
           begin
-            //the address hasn't been found yet
-            //this is the part that causes those nops after a short jump below the current instruction
+            if not labels[j].defined then
+            begin
+              //the address hasn't been found yet
+              //this is the part that causes those nops after a short jump below the current instruction
 
-            //close
-            s1:=replacetoken(currentline,labels[j].labelname,IntToHex(currentaddress,8));
+              //problem: The size of these instructions determine where this label will be defined
 
-            //far and big
+              //close
+              s1:=replacetoken(currentline,labels[j].labelname,IntToHex(currentaddress,8));
 
-            if (processhandler.is64Bit) then //and not in region
-              currentline:=replacetoken(currentline,labels[j].labelname,IntToHex(currentaddress+$1000FFFFF,8))
-            else
-            currentline:=replacetoken(currentline,labels[j].labelname,IntToHex(currentaddress+$FFFFF,8));
+              //far and big
 
-            setlength(assembled,length(assembled)+1);
-            assembled[length(assembled)-1].address:=currentaddress;
-            assemble(currentline,currentaddress,assembled[length(assembled)-1].bytes, apnone, true);
-            a:=length(assembled[length(assembled)-1].bytes);
+              if processhandler.SystemArchitecture=archarm then
+              begin
+                currentline:=replacetoken(currentline,labels[j].labelname,IntToHex(currentaddress+$4FFFFF8,8));
+              end
+              else
+              begin
+                if (processhandler.is64Bit) then //and not in region
+                  currentline:=replacetoken(currentline,labels[j].labelname,IntToHex(currentaddress+$1000FFFFF,8))
+                else
+                  currentline:=replacetoken(currentline,labels[j].labelname,IntToHex(currentaddress+$FFFFF,8));
+              end;
 
-            assemble(s1,currentaddress,assembled[length(assembled)-1].bytes, apnone, true);
-            b:=length(assembled[length(assembled)-1].bytes);
 
-            if a>b then //pick the biggest one
-              assemble(currentline,currentaddress,assembled[length(assembled)-1].bytes);
 
-            setlength(labels[j].references,length(labels[j].references)+1);
-            labels[j].references[length(labels[j].references)-1]:=length(assembled)-1;
+              setlength(assembled,length(assembled)+1);
+              assembled[length(assembled)-1].address:=currentaddress;
+              assemble(currentline,currentaddress,assembled[length(assembled)-1].bytes, apnone, true);
+              a:=length(assembled[length(assembled)-1].bytes);
 
-            setlength(labels[j].references2,length(labels[j].references2)+1);
-            labels[j].references2[length(labels[j].references2)-1]:=i;
+              assemble(s1,currentaddress,assembled[length(assembled)-1].bytes, apnone, true);
+              b:=length(assembled[length(assembled)-1].bytes);
 
-            inc(currentaddress,length(assembled[length(assembled)-1].bytes));
-            ok1:=true;
-          end else currentline:=replacetoken(currentline,labels[j].labelname,IntToHex(labels[j].address,8));
+              if a>b then //pick the biggest one
+                assemble(currentline,currentaddress,assembled[length(assembled)-1].bytes);
 
-          break;
+              setlength(labels[j].references,length(labels[j].references)+1);
+              labels[j].references[length(labels[j].references)-1]:=length(assembled)-1;
+
+              setlength(labels[j].references2,length(labels[j].references2)+1);
+              labels[j].references2[length(labels[j].references2)-1]:=i;
+
+              inc(currentaddress,length(assembled[length(assembled)-1].bytes));
+              ok1:=true;
+            end else currentline:=replacetoken(currentline,labels[j].labelname,IntToHex(labels[j].address,8));
+
+            break;
+          end;
         end;
+      end;
 
       if ok1 then continue;
 
@@ -1788,8 +1811,16 @@ begin
 
               setlength(assembled[labels[j].references[k]].bytes,a); //original size (original size is always bigger or equal than newsize)
               //fill the difference with nops (not the most efficient approach, but it should work)
-              for l:=b to a-1 do
-                assembled[labels[j].references[k]].bytes[l]:=$90;
+              if processhandler.SystemArchitecture=archarm then
+              begin
+                for l:=0 to ((a-b+3) div 4)-1 do
+                  pdword(@assembled[labels[j].references[k]].bytes[b+l*4])^:=$e1a00000;      //<mov r0,r0: (nop equivalent)
+              end
+              else
+              begin
+                for l:=b to a-1 do
+                  assembled[labels[j].references[k]].bytes[l]:=$90; //nop
+              end;
             end;
 
 
@@ -1837,7 +1868,7 @@ begin
     begin
       virtualprotectex(processhandle,pointer(fullaccess[i].address),fullaccess[i].size,PAGE_EXECUTE_READWRITE,op);
 
-      if (fullaccess[i].address>80000000) and (DBKLoaded) then
+      if (fullaccess[i].address>$80000000) and (DBKLoaded) then
         MakeWritable(fullaccess[i].address,(fullaccess[i].size div 4096)*4096,false);
     end;
 
@@ -1897,7 +1928,7 @@ begin
           binaryfile:=tmemorystream.Create;
           try
             binaryfile.LoadFromFile(loadbinary[i].filename);
-            ok2:=writeprocessmemory(processhandle,pointer(testptr),binaryfile.Memory,binaryfile.Size,bw);
+            ok2:=writeprocessmemory(processhandle,pointer(testptr),binaryfile.Memory,binaryfile.Size,x);
           finally
             binaryfile.free;
           end;
@@ -1909,7 +1940,7 @@ begin
     begin
       testptr:=assembled[i].address;
       ok1:=virtualprotectex(processhandle,pointer(testptr),length(assembled[i].bytes),PAGE_EXECUTE_READWRITE,op);
-      ok1:=WriteProcessMemory(processhandle,pointeR(testptr),@assembled[i].bytes[0],length(assembled[i].bytes),op2);
+      ok1:=WriteProcessMemory(processhandle,pointeR(testptr),@assembled[i].bytes[0],length(assembled[i].bytes),x);
       virtualprotectex(processhandle,pointer(testptr),length(assembled[i].bytes),op,op2);
 
       if not ok1 then ok2:=false;
@@ -1924,7 +1955,7 @@ begin
       //if ceallocarray<>nil then
       begin
         //see if all allocs are deallocated
-        if length(dealloc)=length(ceallocarray) then //free everything
+        if (length(dealloc)>0) and (length(dealloc)=length(ceallocarray)) then //free everything
         begin
           {$ifdef cpu64}
           baseaddress:=ptrUint($FFFFFFFFFFFFFFFF);
@@ -1937,6 +1968,7 @@ begin
             if ceallocarray[i].address<baseaddress then
               baseaddress:=ceallocarray[i].address;
           end;
+
           virtualfreeex(processhandle,pointer(baseaddress),0,MEM_RELEASE);
         end;
 
@@ -2321,6 +2353,12 @@ begin
   end;
 end;
 
+function autoassemble(code: Tstrings; popupmessages,enable,syntaxcheckonly, targetself: boolean):boolean; overload;
+var aa: TCEAllocArray;
+begin
+  setlength(aa,0);
+  result:=autoassemble(code,popupmessages,enable,syntaxcheckonly,targetself,aa,nil);
+end;
 
 function autoassemble(code: tstrings;popupmessages: boolean):boolean; overload;
 var aa: TCEAllocArray;

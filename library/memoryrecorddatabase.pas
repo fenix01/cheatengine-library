@@ -23,6 +23,9 @@ public
   procedure addAutoAssembleScript(description : string ; script: string);
   function getRecordWithID(id: integer): TMemoryRecord;
   function getRecordWithDescription(description: string): TMemoryRecord;
+  procedure addAddressManually(initialaddress: string=''; vartype: TVariableType=vtDword);
+  function addaddress(description: string; address: string; const offsets: array of integer; offsetcount: integer;
+    vartype: TVariableType; customtypename: string=''; length: integer=0; startbit: integer=0; unicode: boolean=false): TMemoryRecord;
   procedure RefreshCustomTypes;
   procedure ReinterpretAddresses;
   function GetUniqueMemrecId: integer;
@@ -199,6 +202,79 @@ begin
   memrec := getRecordWithID(id);
   if (Assigned(memrec)) then
      records.Remove(memrec);
+end;
+
+procedure TMemoryRecordTable.addAddressManually(initialaddress: string=''; vartype: TVariableType=vtDword);
+var mr: TMemoryRecord;
+begin
+  mr:=TMemoryrecord.Create(self);
+  mr.id:=GetUniqueMemrecId();
+  mr.isGroupHeader:=false;
+  mr:=addaddress('No description',initialaddress,[],0, vartype);
+  mr.visible:=false;
+end;
+
+function TMemoryRecordTable.addaddress(description: string; address: string; const offsets: array of integer; offsetcount: integer;
+  vartype: TVariableType; customtypename: string=''; length: integer=0; startbit: integer=0; unicode: boolean=false): TMemoryRecord;
+var
+  memrec: TMemoryRecord;
+  i: integer;
+begin
+  memrec:=TMemoryRecord.create(self);
+
+  memrec.id:=GetUniqueMemrecId;
+
+  memrec.Description:=description;
+  memrec.interpretableaddress:=address;
+
+
+  memrec.VarType:=vartype;
+  memrec.CustomTypeName:=customtypename;
+
+  setlength(memrec.pointeroffsets,offsetcount);
+  for i:=0 to offsetcount-1 do
+    memrec.pointeroffsets[i]:=offsets[i];
+
+  case vartype of
+    vtString:
+    begin
+      memrec.extra.stringData.unicode:=unicode;
+      memrec.Extra.stringData.length:=length;
+    end;
+
+    vtUnicodeString:
+    begin
+      memrec.vartype:=vtString;
+      memrec.extra.stringData.unicode:=true;
+      memrec.Extra.stringData.length:=length;
+    end;
+
+    vtBinary:
+    begin
+      memrec.Extra.bitData.Bit:=startbit;
+      memrec.Extra.bitData.bitlength:=length;
+    end;
+
+    vtByteArray:
+    begin
+      memrec.showAsHex:=true; //aob's are hex by default
+      memrec.Extra.byteData.bytelength:=length;
+    end;
+
+    vtPointer:
+    begin
+      if processhandler.is64Bit then
+        memrec.vartype:=vtQword
+      else
+        memrec.vartype:=vtDword;
+
+      memrec.showAsHex:=true;
+    end;
+  end;
+
+  memrec.ReinterpretAddress;
+
+  result:=memrec;
 end;
 
 destructor TMemoryRecordTable.Destroy();

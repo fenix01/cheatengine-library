@@ -1,10 +1,10 @@
 unit NewKernelHandler;
 
 {$MODE Delphi}
-{$asmmode intel}
 
 interface
-uses jwawindows, windows,LCLIntf,sysutils, dialogs, controls;
+uses jwawindows, windows,LCLIntf,sysutils, dialogs, classes, controls,
+	dbk32functions, vmxfunctions, debug;
 
 const dbkdll='DBK32.dll';
 
@@ -213,6 +213,29 @@ type
   _CONTEXT=CONTEXT;
 
 {$endif}
+type
+  TARMCONTEXT=packed record
+     R0: DWORD;
+     R1: DWORD;
+     R2: DWORD;
+     R3: DWORD;
+     R4: DWORD;
+     R5: DWORD;
+     R6: DWORD;
+     R7: DWORD;
+     R8: DWORD;
+     R9: DWORD;
+     R10: DWORD;
+     FP: DWORD;
+     IP: DWORD;
+     SP: DWORD;
+     LR: DWORD;
+     PC: DWORD;
+     CPSR: DWORD;
+     ORIG_R0: DWORD;
+  end;
+
+  PARMCONTEXT=^TARMCONTEXT;
 
 
 //credits to jedi code library for filling in the "extended registers"
@@ -400,10 +423,10 @@ type TGetDeviceDriverFileName=function(ImageBase: LPVOID; lpFilename: LPTSTR; nS
 type TGetLargePageMinimum=function: SIZE_T; stdcall;
 
 
-type TReadProcessMemory=function(hProcess: THandle; lpBaseAddress, lpBuffer: Pointer; nSize: DWORD; var lpNumberOfBytesRead: DWORD): BOOL; stdcall;
-type TReadProcessMemory64=function(hProcess: THandle; lpBaseAddress: UINT64; lpBuffer: pointer; nSize: DWORD; var lpNumberOfBytesRead: DWORD): BOOL; stdcall;
-type TWriteProcessMemory=function(hProcess: THandle; const lpBaseAddress: Pointer; lpBuffer: Pointer; nSize: DWORD; var lpNumberOfBytesWritten: DWORD): BOOL; stdcall;
-type TWriteProcessMemory64=function(hProcess: THandle; BaseAddress: UINT64; lpBuffer: Pointer; nSize: DWORD; var lpNumberOfBytesWritten: DWORD): BOOL; stdcall;
+type TReadProcessMemory=function(hProcess: THandle; lpBaseAddress, lpBuffer: Pointer; nSize: DWORD; var lpNumberOfBytesRead: PTRUINT): BOOL; stdcall;
+type TReadProcessMemory64=function(hProcess: THandle; lpBaseAddress: UINT64; lpBuffer: pointer; nSize: DWORD; var lpNumberOfBytesRead: PTRUINT): BOOL; stdcall;
+type TWriteProcessMemory=function(hProcess: THandle; const lpBaseAddress: Pointer; lpBuffer: Pointer; nSize: DWORD; var lpNumberOfBytesWritten: PTRUINT): BOOL; stdcall;
+type TWriteProcessMemory64=function(hProcess: THandle; BaseAddress: UINT64; lpBuffer: Pointer; nSize: DWORD; var lpNumberOfBytesWritten: ptruint): BOOL; stdcall;
 
 
 type TGetThreadContext=function(hThread: THandle; var lpContext: TContext): BOOL; stdcall;
@@ -529,11 +552,25 @@ type Tdbvm_write_physical_memory=function(PhysicalAddress: UINT64; source: point
 procedure DONTUseDBKQueryMemoryRegion;
 procedure DONTUseDBKReadWriteMemory;
 procedure DONTUseDBKOpenProcess;
+procedure UseDBKQueryMemoryRegion;
+procedure UseDBKReadWriteMemory;
+procedure UseDBKOpenProcess;
 
+procedure DBKFileAsMemory(filename:string); overload;
+procedure DBKFileAsMemory; overload;
 function VirtualQueryExPhysical(hProcess: THandle; lpAddress: Pointer; var lpBuffer: TMemoryBasicInformation; dwLength: DWORD): DWORD; stdcall;
+procedure DBKPhysicalMemory;
 procedure DBKPhysicalMemoryDBVM;
+procedure DBKProcessMemory;
+procedure LoadDBK32; stdcall;
 
 procedure OutputDebugString(msg: string);
+
+
+procedure NeedsDBVM;
+function loaddbvmifneeded: BOOL; stdcall;
+function isRunningDBVM: boolean;
+function isDBVMCapable: boolean;
 
 function isIntel: boolean;
 function isAMD: boolean;
@@ -706,7 +743,8 @@ uses
      plugin,
      dbvmPhysicalMemoryHandler, //'' for physical mem
      {$endif}
-     filehandler; //so I can let readprocessmemory point to ReadProcessMemoryFile in filehandler
+     filehandler,  //so I can let readprocessmemory point to ReadProcessMemoryFile in filehandler
+     autoassembler;
 
 
 
@@ -715,7 +753,7 @@ resourcestring
     +'you lose your data(So don''t forget to save first). Do you want to run DBVM?';
   rsDidNotLoadDBVM = 'I don''t know what you did, you didn''t crash, but you also didn''t load DBVM';
   rsPleaseRebootAndPressF8BeforeWindowsBoots = 'Please reboot and press f8 before windows boots. Then enable unsigned drivers. Alternatively, you could buy yourself a business '
-    +'class certificicate and sign the driver yourself (or try debug signing)';
+    +'class certificate and sign the driver yourself (or try debug signing)';
   rsTheDriverNeedsToBeLoadedToBeAbleToUseThisFunction = 'The driver needs to be loaded to be able to use this function.';
   rsYourCpuMustBeAbleToRunDbvmToUseThisFunction = 'Your cpu must be able to run dbvm to use this function';
   rsCouldnTBeOpened = '%s couldn''t be opened';
@@ -755,6 +793,65 @@ begin
       result:=false; //IsWo64Process failed, happens on OS'es that don't have this api implemented
 
   end else result:=false; //32-bit can't run 64
+end;
+
+procedure NeedsDBVM;
+begin
+  if (not isRunningDBVM) then
+  begin
+    if isDBVMCapable and (MessageDlg(rsToUseThisFunctionYouWillNeedToRunDBVM, mtWarning, [mbyes, mbno], 0)=mryes) then
+    begin
+      LaunchDBVM;
+      if not isRunningDBVM then raise exception.Create(rsDidNotLoadDBVM);
+    end;
+
+    if not isRunningDBVM then
+      raise exception.create('DBVM is not loaded. This feature is not usable');
+  end;
+end;
+
+function loaddbvmifneeded: BOOL;  stdcall;
+var signed: BOOL;
+begin
+  loaddbk32;
+  if assigned(isDriverLoaded) then
+  begin
+    result:=false;
+    if is64bitos and (not isRunningDBVM) then
+    begin
+      if isDBVMCapable then
+      begin
+        signed:=false;
+        if isDriverLoaded(@signed) then
+        begin
+          if MessageDlg(rsToUseThisFunctionYouWillNeedToRunDBVM, mtWarning, [mbyes, mbno], 0)=mryes then
+          begin
+            LaunchDBVM;
+            if not isRunningDBVM then raise exception.Create(rsDidNotLoadDBVM);
+            result:=true;
+          end;
+        end else
+        begin
+          //the driver isn't loaded
+          if signed then
+          begin
+            raise exception.Create(rsPleaseRebootAndPressF8BeforeWindowsBoots);
+          end
+          else
+          begin
+            raise exception.Create(rsTheDriverNeedsToBeLoadedToBeAbleToUseThisFunction);
+          end;
+        end;
+      end else raise exception.Create(rsYourCpuMustBeAbleToRunDbvmToUseThisFunction);
+    end
+    else result:=true;
+
+  end;
+end;
+
+function isRunningDBVM: boolean;
+begin
+  result:=dbvm_version>0;
 end;
 
 function isIntel: boolean;
@@ -806,29 +903,224 @@ begin
   result:=(b=$68747541) and (d=$69746e65) and (c=$444d4163);
 end;
 
+function isDBVMCapable: boolean;
+var a,b,c,d: dword;
+begin
+  result:=false;
+  if not isRunningDBVM then
+  begin
+    if isIntel then
+    begin
+      asm
+        push {$ifdef cpu64}rax{$else}eax{$endif}
+        push {$ifdef cpu64}rbx{$else}ebx{$endif}
+        push {$ifdef cpu64}rcx{$else}ecx{$endif}
+        push {$ifdef cpu64}rdx{$else}edx{$endif}
+        mov eax,1
+        cpuid
+        mov a,eax
+        mov b,ebx
+        mov c,ecx
+        mov d,edx
+        pop {$ifdef cpu64}rdx{$else}edx{$endif}
+        pop {$ifdef cpu64}rcx{$else}ecx{$endif}
+        pop {$ifdef cpu64}rbx{$else}ebx{$endif}
+        pop {$ifdef cpu64}rax{$else}eax{$endif}
+      end;
+
+      if ((c shr 5) and 1)=1 then //check for the intel-vt flag
+        result:=true;
+    end
+    else
+    if isAMD then
+    begin
+      //check if it supports SVM
+      asm
+        push {$ifdef cpu64}rax{$else}eax{$endif}
+        push {$ifdef cpu64}rbx{$else}ebx{$endif}
+        push {$ifdef cpu64}rcx{$else}ecx{$endif}
+        push {$ifdef cpu64}rdx{$else}edx{$endif}
+        mov eax,$80000001
+        cpuid
+        mov a,eax
+        mov b,ebx
+        mov c,ecx
+        mov d,edx
+        pop {$ifdef cpu64}rdx{$else}edx{$endif}
+        pop {$ifdef cpu64}rcx{$else}ecx{$endif}
+        pop {$ifdef cpu64}rbx{$else}ebx{$endif}
+        pop {$ifdef cpu64}rax{$else}eax{$endif}
+      end;
+
+      if ((c shr 2) and 1)=1 then
+        result:=true; //SVM is possible
+    end;
+
+  end;
+
+end;
+
+procedure LoadDBK32; stdcall;
+begin
+  if not DBKLoaded then
+  begin
+    outputdebugstring('LoadDBK32');
+
+
+
+    DBK32Initialize;
+    DBKLoaded:=(dbk32functions.hdevice<>0) and (dbk32functions.hdevice<>INVALID_HANDLE_VALUE);
+
+    //DarkByteKernel:= LoadLibrary(dbkdll);
+//    if DarkByteKernel=0 then exit; //raise exception.Create('Failed to open DBK32.dll');
+
+    //the driver is loaded (I hope)
+
+    //KernelVirtualAllocEx:=@dbk32functions.VAE; //GetProcAddress(darkbytekernel,'VAE');
+   // KernelOpenProcess:=@dbk32functions.OP; //GetProcAddress(darkbytekernel,'OP');
+   // KernelReadProcessMemory:=@dbk32functions.RPM; //GetProcAddresS(darkbytekernel,'RPM');
+  //  KernelReadProcessMemory64:=@dbk32functions.RPM64; //GetProcAddresS(darkbytekernel,'RPM64');
+  //  KernelWriteProcessMemory:=@dbk32functions.WPM; //GetProcAddress(darkbytekernel,'WPM');
+  //  ReadProcessMemory64:=@dbk32functions.RPM64; //GetProcAddress(DarkByteKernel,'RPM64');
+//    WriteProcessMemory64:=@dbk32functions.WPM64; //GetProcAddress(DarkByteKernel,'WPM64');
+
+//    GetPEProcess:=@dbk32functions.GetPEProcess; //GetProcAddress(DarkByteKernel,'GetPEProcess');
+//    GetPEThread:=@dbk32functions.GetPEThread; //GetProcAddress(DarkByteKernel,'GetPEThread');
+    GetThreadsProcessOffset:=@dbk32functions.GetThreadsProcessOffset; //GetProcAddress(DarkByteKernel,'GetThreadsProcessOffset');
+    GetThreadListEntryOffset:=@dbk32functions.GetThreadListEntryOffset; //GetProcAddress(DarkByteKernel,'GetThreadListEntryOffset');
+    GetDebugportOffset:=@dbk32functions.GetDebugportOffset; //GetProcAddresS(DarkByteKernel,'GetDebugportOffset');
+    GetPhysicalAddress:=@dbk32functions.GetPhysicalAddress; //GetProcAddresS(DarkByteKernel,'GetPhysicalAddress');
+    GetCR4:=@dbk32functions.GetCR4; //GetProcAddress(DarkByteKernel,'GetCR4');
+    GetCR3:=@dbk32functions.GetCR3;
+//    SetCR3:=@dbk32functions.SetCR3;
+    GetCR0:=@dbk32functions.GetCR0;
+    GetSDT:=@dbk32functions.GetSDT;
+    GetSDTShadow:=@dbk32functions.GetSDTShadow;
+
+//    setAlternateDebugMethod:=@setAlternateDebugMethod;
+//    getAlternateDebugMethod:=@getAlternateDebugMethod;
+//    DebugProcess:=@DebugProcess;
+//    StopDebugging:=@StopDebugging;
+//    StopRegisterChange:=@StopRegisterChange;
+//    RetrieveDebugData:=@RetrieveDebugData;
+//    ChangeRegOnBP:=@ChangeRegOnBP;
+    StartProcessWatch:=@dbk32functions.StartProcessWatch;
+    WaitForProcessListData:=@dbk32functions.WaitForProcessListData;
+    GetProcessNameFromID:=@dbk32functions.GetProcessNameFromID;
+    GetProcessNameFromPEProcess:=@dbk32functions.GetProcessNameFromPEProcess;
+
+    IsValidHandle:=@dbk32functions.IsValidHandle;
+
+
+    GetIDTs:=@dbk32functions.GetIDTs;
+
+    GetIDTCurrentThread:=@dbk32functions.GetIDTCurrentThread;
+    GetGDT:=@dbk32functions.GetGDT;
+    MakeWritable:=@dbk32functions.MakeWritable;
+    GetLoadedState:=@dbk32functions.GetLoadedState;
+
+    DBKResumeThread:=@dbk32functions.DBKResumeThread;
+    DBKSuspendThread:=@dbk32functions.DBKSuspendThread;
+
+    DBKResumeProcess:=@dbk32functions.DBKResumeProcess;
+    DBKSuspendProcess:=@dbk32functions.DBKSuspendProcess;
+
+    KernelAlloc:=@dbk32functions.KernelAlloc;
+    KernelAlloc64:=@dbk32functions.KernelAlloc64;
+    GetKProcAddress:=@dbk32functions.GetKProcAddress;
+    GetKProcAddress64:=@dbk32functions.GetKProcAddress64;
+
+    GetSDTEntry:= @dbk32functions.GetSDTEntry;
+    GetSSDTEntry:=@dbk32functions.GetSSDTEntry;
+
+    isDriverLoaded:=@dbk32functions.isDriverLoaded;
+    LaunchDBVM:=@dbk32functions.LaunchDBVM;
+
+    ReadPhysicalMemory:=@dbk32functions.ReadPhysicalMemory;
+    WritePhysicalMemory:=@dbk32functions.WritePhysicalMemory;
+
+    CreateRemoteAPC:=@dbk32functions.CreateRemoteAPC;
+//    SetGlobalDebugState:=@SetGlobalDebugState;
+
+    DBKDebug_ContinueDebugEvent:=@debug.DBKDebug_ContinueDebugEvent;
+    DBKDebug_WaitForDebugEvent:=@debug.DBKDebug_WaitForDebugEvent;
+    DBKDebug_GetDebuggerState:=@debug.DBKDebug_GetDebuggerState;
+    DBKDebug_SetDebuggerState:=@debug.DBKDebug_SetDebuggerState;
+
+    DBKDebug_SetGlobalDebugState:=@debug.DBKDebug_SetGlobalDebugState;
+    DBKDebug_SetAbilityToStepKernelCode:=@debug.DBKDebug_SetAbilityToStepKernelCode;
+    DBKDebug_StartDebugging:=@debug.DBKDebug_StartDebugging;
+    DBKDebug_StopDebugging:=@debug.DBKDebug_StopDebugging;
+    DBKDebug_GD_SetBreakpoint:=@debug.DBKDebug_GD_SetBreakpoint;
+
+
+
+
+    {$ifdef cemain}
+    if pluginhandler<>nil then
+      pluginhandler.handlechangedpointers(0);
+    {$endif}
+
+  end;
+end;
+
+
+procedure DBKFileAsMemory; overload;
+{Changes the redirection of ReadProcessMemory, WriteProcessMemory and VirtualQueryEx to FileHandler.pas's ReadProcessMemoryFile, WriteProcessMemoryFile and VirtualQueryExFile }
+begin
+  UseFileAsMemory:=true;
+  usephysical:=false;
+  Usephysicaldbvm:=false;
+  ReadProcessMemory:=@ReadProcessMemoryFile;
+  WriteProcessMemory:=@WriteProcessMemoryFile;
+  VirtualQueryEx:=@VirtualQueryExFile;
+
+
+  {$ifdef cemain}
+  if pluginhandler<>nil then
+    pluginhandler.handlechangedpointers(3);
+  {$endif}
+end;
+
+procedure DBKFileAsMemory(filename:string); overload;
+begin
+  filehandle:=CreateFile(pchar(filename),GENERIC_READ	or GENERIC_WRITE,FILE_SHARE_READ or FILE_SHARE_WRITE,nil,OPEN_EXISTING,FILE_FLAG_RANDOM_ACCESS,0);
+  if filehandle=0 then raise exception.create(Format(rsCouldnTBeOpened, [filename]));
+  DBKFileAsMemory;
+end;
+
 function VirtualQueryExPhysical(hProcess: THandle; lpAddress: Pointer; var lpBuffer: TMemoryBasicInformation; dwLength: DWORD): DWORD; stdcall;
 var buf:_MEMORYSTATUS;
 begin
-  GlobalMemoryStatus(buf);
 
-  lpBuffer.BaseAddress:=pointer((ptrUint(lpAddress) div $1000)*$1000);
-  lpbuffer.AllocationBase:=lpbuffer.BaseAddress;
-  lpbuffer.AllocationProtect:=PAGE_EXECUTE_READWRITE;
-  lpbuffer.RegionSize:=buf.dwTotalPhys-ptrUint(lpBuffer.BaseAddress);
-  lpbuffer.RegionSize:=lpbuffer.RegionSize+($1000-lpbuffer.RegionSize mod $1000);
-
-  lpbuffer.State:=mem_commit;
-  lpbuffer.Protect:=PAGE_EXECUTE_READWRITE;
-  lpbuffer._Type:=MEM_PRIVATE;
-
-  if (ptrUint(lpAddress)>buf.dwTotalPhys) //bigger than the total ammount of memory
-  then
+  if dbk32functions.hdevice<>INVALID_HANDLE_VALUE then
   begin
-    zeromemory(@lpbuffer,dwlength);
-    result:=0
+    result:=dbk32functions.VirtualQueryExPhysical(hProcess, lpAddress, lpBuffer, dwLength);
   end
   else
-    result:=dwlength;
+  begin
+    GlobalMemoryStatus(buf);
+
+    lpBuffer.BaseAddress:=pointer((ptrUint(lpAddress) div $1000)*$1000);
+    lpbuffer.AllocationBase:=lpbuffer.BaseAddress;
+    lpbuffer.AllocationProtect:=PAGE_EXECUTE_READWRITE;
+    lpbuffer.RegionSize:=buf.dwTotalPhys-ptrUint(lpBuffer.BaseAddress);
+    lpbuffer.RegionSize:=lpbuffer.RegionSize+($1000-lpbuffer.RegionSize mod $1000);
+
+    lpbuffer.State:=mem_commit;
+    lpbuffer.Protect:=PAGE_EXECUTE_READWRITE;
+    lpbuffer._Type:=MEM_PRIVATE;
+
+    if (ptrUint(lpAddress)>buf.dwTotalPhys) //bigger than the total ammount of memory
+    then
+    begin
+      zeromemory(@lpbuffer,dwlength);
+      result:=0
+    end
+    else
+      result:=dwlength;
+
+  end;
 
 end;
 
@@ -850,16 +1142,82 @@ begin
 {$endif}
 end;
 
+procedure DBKPhysicalMemory;
+begin
+  LoadDBK32;
+  If DBKLoaded=false then exit;
+
+  UsePhysical:=true;
+  Usephysicaldbvm:=false;
+  if usefileasmemory then closehandle(filehandle);
+  usefileasmemory:=false;
+  ReadProcessMemory:=@ReadPhysicalMemory;
+  WriteProcessMemory:=@WritePhysicalMemory;
+  VirtualQueryEx:=@VirtualQueryExPhysical;
+
+
+  {$ifdef cemain}
+  if pluginhandler<>nil then
+    pluginhandler.handlechangedpointers(4);
+  {$endif}
+
+end;
+
+procedure DBKProcessMemory;
+begin
+  if dbkreadwrite then
+    UseDBKReadWriteMemory
+  else
+    dontUseDBKReadWriteMemory;
+
+  if usedbkquery then
+    Usedbkquerymemoryregion
+  else
+    dontusedbkquerymemoryregion;
+
+  usephysical:=false;
+  Usephysicaldbvm:=false;
+
+  if usefileasmemory then closehandle(filehandle);
+  usefileasmemory:=false;
+
+end;
+
+
 
 procedure DontUseDBKQueryMemoryRegion;
 {Changes the redirection of VirtualQueryEx back to the windows API virtualQueryEx}
 begin
   VirtualQueryEx:=GetProcAddress(WindowsKernel,'VirtualQueryEx');
   usedbkquery:=false;
+  if usephysicaldbvm then DbkPhysicalMemoryDBVM;
+  if usephysical then DbkPhysicalMemory;
+  if usefileasmemory then dbkfileasmemory;
 
   {$ifdef cemain}
   if pluginhandler<>nil then
     pluginhandler.handlechangedpointers(5);
+  {$endif}
+
+end;
+
+procedure UseDBKQueryMemoryRegion;
+{Changes the redirection of VirtualQueryEx to the DBK32 equivalent}
+begin
+  LoadDBK32;
+  If DBKLoaded=false then exit;
+  UseDBKOpenProcess;
+  VirtualQueryEx:=@VQE;
+  usedbkquery:=true;
+
+  if usephysical then DbkPhysicalMemory;
+  if usephysicaldbvm then DBKPhysicalMemoryDBVM;
+  if usefileasmemory then dbkfileasmemory;
+
+
+  {$ifdef cemain}
+  if pluginhandler<>nil then
+    pluginhandler.handlechangedpointers(6);
   {$endif}
 
 end;
@@ -871,11 +1229,36 @@ begin
   ReadProcessMemory:=GetProcAddress(WindowsKernel,'ReadProcessMemory');
   WriteProcessMemory:=GetProcAddress(WindowsKernel,'WriteProcessMemory');
   VirtualAllocEx:=GetProcAddress(WindowsKernel,'VirtualAllocEx');
+  if usephysical then DbkPhysicalMemory;
+  if usephysicaldbvm then DBKPhysicalMemoryDBVM;
+  if usefileasmemory then dbkfileasmemory;
 
   {$ifdef cemain}
   if pluginhandler<>nil then
     pluginhandler.handlechangedpointers(7);
   {$endif}
+
+end;
+
+procedure UseDBKReadWriteMemory;
+{Changes the redirection of ReadProcessMemory, WriteProcessMemory and VirtualQueryEx to the DBK32 equiv: RPM, WPM and VAE }
+begin
+  LoadDBK32;
+  If DBKLoaded=false then exit;
+  UseDBKOpenProcess;
+  ReadProcessMemory:=@RPM;
+  WriteProcessMemory:=@WPM;
+  VirtualAllocEx:=@VAE;
+  DBKReadWrite:=true;
+  if usephysical then DbkPhysicalMemory;
+  if usephysicaldbvm then DBKPhysicalMemoryDBVM;
+  if usefileasmemory then dbkfileasmemory;
+
+  {$ifdef cemain}
+  if pluginhandler<>nil then
+    pluginhandler.handlechangedpointers(8);
+  {$endif}
+
 
 end;
 
@@ -887,6 +1270,29 @@ begin
 
   {$ifdef cemain}
   pluginhandler.handlechangedpointers(9);
+  {$endif}
+
+end;
+
+procedure UseDBKOpenProcess;
+var
+  nthookscript: Tstringlist;
+begin
+  LoadDBK32;
+  If DBKLoaded=false then exit;
+  OpenProcess:=@OP; //gives back the real handle, or if it fails it gives back a value only valid for the dll
+  OpenThread:=@OT;
+
+  nthookscript:=tstringlist.create;
+  nthookscript.add('NtOpenProcess:');
+  nthookscript.add('jmp '+IntToHex(ptruint(@NOP),8));
+
+  autoassemble(nthookscript, false, true, false, true);
+
+  nthookscript.free;
+
+  {$ifdef cemain}
+  pluginhandler.handlechangedpointers(10);
   {$endif}
 
 end;

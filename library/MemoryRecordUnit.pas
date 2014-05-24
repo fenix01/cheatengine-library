@@ -1301,7 +1301,7 @@ end;
 
 function TMemoryRecord.GetValue: string;
 var
-  br: dword;
+  br: PtrUInt;
   bufsize: integer;
   buf: pointer;
   pb: pbyte absolute buf;
@@ -1317,6 +1317,9 @@ var
 
   i: integer;
 begin
+
+
+
   result:='';
   if fisGroupHeader then exit;
 
@@ -1421,7 +1424,7 @@ Changes this address to the value V
 var
   buf: pointer;
   bufsize: integer;
-  x: dword;
+  x: PtrUInt;
   i: integer;
   pb: pbyte absolute buf;
   pba: pbytearray absolute buf;
@@ -1733,4 +1736,5 @@ begin
 end;
 
 end.
+
 
