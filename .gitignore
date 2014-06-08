@@ -4,6 +4,10 @@
 ./library/backup/
 ./example/c++/x64/
 ./example/c++/x64/
+./example/delphi/__history/
+./wrapper/delphi/__history/
+.example/c#/bin/
+.example/c#/obj
 ./dll/backup/
 ./dll/lib
 *.o
@@ -16,5 +20,5 @@
 *.a
 *.dcu
 *.rsm
-/example/delphi/__history/
-/wrapper/delphi/__history/
+*.local
+*.identcache
