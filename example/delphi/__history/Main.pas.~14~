@@ -1,0 +1,76 @@
+unit Main;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Connector, Vcl.ExtCtrls;
+
+type
+  TfmSample = class(TForm)
+    Panel2: TPanel;
+    ltProcess: TListBox;
+    btnProcesses: TButton;
+    btnOpenProcess: TButton;
+    Memo1: TMemo;
+    GroupBox1: TGroupBox;
+    btnLoad: TButton;
+    btnUnload: TButton;
+    Button1: TButton;
+    procedure btnLoadClick(Sender: TObject);
+    procedure btnUnloadClick(Sender: TObject);
+    procedure btnProcessesClick(Sender: TObject);
+    procedure btnOpenProcessClick(Sender: TObject);
+  private
+    { Déclarations privées }
+  public
+    { Déclarations publiques }
+  end;
+
+var
+  fmSample: TfmSample;
+  dllHandle: THandle;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfmSample.btnLoadClick(Sender: TObject);
+begin
+  dllHandle := LoadLibrary
+    ('ce-lib64.dll');
+  if dllHandle <> 0 then
+  begin
+    ShowMessage('loaded');
+    loadFunctions(dllHandle);
+  end
+  else
+    ShowMessage(IntToStr(GetLastError()));
+end;
+
+procedure TfmSample.btnUnloadClick(Sender: TObject);
+begin
+  FreeLibrary(Handle);
+end;
+
+procedure TfmSample.btnOpenProcessClick(Sender: TObject);
+var
+pid : String;
+begin
+ pid := ListBox2.Items.Strings[ListBox2.ItemIndex];
+ pid := Copy(pid,0,8);
+ if pid <> '' then
+  IOpenProcess(pid);
+end;
+
+procedure TfmSample.btnProcessesClick(Sender: TObject);
+var
+  s1 : WideString;
+  s2 : String;
+begin
+  IGetProcessList(s1);
+  s2 := s1;
+  ListBox2.Items.Text := s2;
+end;
+
+end.

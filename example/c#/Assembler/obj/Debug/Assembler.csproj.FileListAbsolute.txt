@@ -1,0 +1,9 @@
+E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\c#\Assembler\bin\Debug\Assembler.exe.config
+E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\c#\Assembler\obj\Debug\Assembler.Properties.Resources.resources
+E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\c#\Assembler\obj\Debug\Assembler.csproj.GenerateResource.Cache
+E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\c#\Assembler\bin\Debug\Assembler.exe
+E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\c#\Assembler\bin\Debug\Assembler.pdb
+E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\c#\Assembler\obj\Debug\Assembler.exe
+E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\c#\Assembler\obj\Debug\Assembler.pdb
+E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\c#\Assembler\obj\Debug\Assembler.fmSample.resources
+E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\c#\Assembler\obj\Debug\Assembler.csprojResolveAssemblyReference.cache

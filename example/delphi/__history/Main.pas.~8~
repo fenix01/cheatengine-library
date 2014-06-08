@@ -1,0 +1,72 @@
+unit Main;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Connector, Vcl.ExtCtrls;
+
+type
+  TfmSample = class(TForm)
+    GroupBox1: TGroupBox;
+    Button1: TButton;
+    Button2: TButton;
+    Panel2: TPanel;
+    ListBox2: TListBox;
+    Button4: TButton;
+    Button3: TButton;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+  private
+    { Déclarations privées }
+  public
+    { Déclarations publiques }
+  end;
+
+var
+  fmSample: TfmSample;
+  dllHandle: THandle;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfmSample.Button1Click(Sender: TObject);
+begin
+  dllHandle := LoadLibrary
+    ('ce-lib64.dll');
+  if dllHandle <> 0 then
+  begin
+    ShowMessage('loaded');
+    loadFunctions(dllHandle);
+  end
+  else
+    ShowMessage(IntToStr(GetLastError()));
+end;
+
+procedure TfmSample.Button2Click(Sender: TObject);
+begin
+  FreeLibrary(Handle);
+end;
+
+procedure TfmSample.Button3Click(Sender: TObject);
+var
+pid : String;
+begin
+ pid := ListBox2.Items.Names[ListBox2.ItemIndex];
+ pid := Copy(pid,0,8);
+end;
+
+procedure TfmSample.Button4Click(Sender: TObject);
+var
+  s1 : WideString;
+  s2 : String;
+begin
+  IGetProcessList(s1);
+  s2 := s1;
+  ListBox2.Items.Text := s2;
+end;
+
+end.
