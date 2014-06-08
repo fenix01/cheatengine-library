@@ -6,8 +6,8 @@
 ./example/c++/x64/
 ./example/delphi/__history/
 ./wrapper/delphi/__history/
-.example/c#/bin/
-.example/c#/obj
+.example/c#/Assembler/bin/
+.example/c#/Assembler/obj/
 ./dll/backup/
 ./dll/lib
 *.o
