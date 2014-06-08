@@ -8,7 +8,7 @@ The first goal of this project is to give you the ability to make your own softw
 Features :
 - manage a virtual cheat engine table
 - inject asm scripts
-- only a few symbols are support : 
+- only these symbols are support : 
     ALLOC
     DEALLOC
     LABEL
@@ -21,10 +21,13 @@ Features :
 
 What's new ?
 
+1.0.1 :
+- added a c#wrapper and a c# example
+
 1.0.0 :
 - added the compiled library in the release page
-- added a dll directory for anyone who wants to customize by himself this dll
-- added a wrapper directory that contains headers for various programming languages. (c++, and delphi for now)
+- added a dll directory for anyone who wants to customize this dll
+- added a wrapper directory that contains headers for various programming languages. (c++, delphi, c#)
 - added a c++ example to call the dll
 - added a new function to the library to remove a script 
 
@@ -34,7 +37,7 @@ What's new ?
 Where should I begin ?
 
 1) If you need an turnkey solution you should download :
-- the c++ or delphi example
+- one example (delphi, c#, or c++)
 - a wrapper for communicating with the dll
 - the library available in the release page : https://github.com/fenix01/cheatengine-library/releases
 
