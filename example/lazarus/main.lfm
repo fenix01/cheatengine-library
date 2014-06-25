@@ -1,27 +1,27 @@
 object fmCE: TfmCE
   Left = 655
-  Height = 637
-  Top = 179
+  Height = 765
+  Top = 51
   Width = 976
   Caption = 'Mini CE'
-  ClientHeight = 637
+  ClientHeight = 765
   ClientWidth = 976
   OnClose = FormClose
   OnCreate = FormCreate
   LCLVersion = '1.2.2.0'
   object Panel1: TPanel
     Left = 0
-    Height = 459
+    Height = 587
     Top = 178
     Width = 216
     Align = alLeft
     Caption = 'Panel1'
-    ClientHeight = 459
+    ClientHeight = 587
     ClientWidth = 216
     TabOrder = 0
     object ltProcess: TListBox
       Left = 1
-      Height = 432
+      Height = 560
       Top = 26
       Width = 214
       Align = alClient
@@ -42,17 +42,17 @@ object fmCE: TfmCE
   end
   object Panel2: TPanel
     Left = 681
-    Height = 459
+    Height = 587
     Top = 178
     Width = 295
     Align = alRight
     Caption = 'Panel2'
-    ClientHeight = 459
+    ClientHeight = 587
     ClientWidth = 295
     TabOrder = 1
     object memoScript: TMemo
       Left = 1
-      Height = 409
+      Height = 537
       Top = 49
       Width = 293
       Align = alClient
@@ -159,7 +159,6 @@ object fmCE: TfmCE
       ClientHeight = 158
       ClientWidth = 460
       TabOrder = 2
-      OnClick = gbScannerClick
       object btnFirstScan: TButton
         Left = 24
         Height = 25
@@ -271,11 +270,28 @@ object fmCE: TfmCE
         ParentColor = False
         Visible = False
       end
+      object Button1: TButton
+        Left = 328
+        Height = 25
+        Top = 120
+        Width = 75
+        Caption = 'Button1'
+        OnClick = Button1Click
+        TabOrder = 6
+      end
+      object Edit1: TEdit
+        Left = 328
+        Height = 23
+        Top = 88
+        Width = 120
+        TabOrder = 7
+        Text = 'Edit1'
+      end
     end
   end
   object ListView1: TListView
     Left = 216
-    Height = 459
+    Height = 587
     Top = 178
     Width = 465
     Align = alClient
@@ -295,7 +311,7 @@ object fmCE: TfmCE
   object Timer1: TTimer
     Enabled = False
     OnTimer = Timer1Timer
-    left = 496
+    left = 488
     top = 24
   end
 end

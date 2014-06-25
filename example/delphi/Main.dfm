@@ -21,7 +21,6 @@ object fmSample: TfmSample
     Align = alRight
     Caption = 'Panel1'
     TabOrder = 0
-    ExplicitHeight = 356
     object ltProcess: TListBox
       AlignWithMargins = True
       Left = 4
@@ -32,9 +31,6 @@ object fmSample: TfmSample
       Align = alBottom
       ItemHeight = 13
       TabOrder = 0
-      ExplicitLeft = 1
-      ExplicitTop = 1
-      ExplicitWidth = 227
     end
     object btnProcesses: TButton
       Left = 64
@@ -68,9 +64,6 @@ object fmSample: TfmSample
       BiDiMode = bdLeftToRight
       ParentBiDiMode = False
       TabOrder = 3
-      ExplicitLeft = 1
-      ExplicitTop = 1
-      ExplicitWidth = 227
       object btnLoad: TButton
         Left = 62
         Top = 16
@@ -110,5 +103,23 @@ object fmSample: TfmSample
     Caption = 'Inject this script !'
     TabOrder = 2
     OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 160
+    Top = 8
+    Width = 75
+    Height = 25
+    Caption = 'Button2'
+    TabOrder = 3
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 256
+    Top = 8
+    Width = 75
+    Height = 25
+    Caption = 'Button3'
+    TabOrder = 4
+    OnClick = Button3Click
   end
 end

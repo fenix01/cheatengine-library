@@ -149,9 +149,11 @@ type
     btnNextScan: TButton;
     btnProcess: TButton;
     btnFirstScan: TButton;
+    Button1: TButton;
     cbScanType: TComboBox;
     chkScripts: TCheckGroup;
     cbValueType: TComboBox;
+    Edit1: TEdit;
     edtValue: TEdit;
     edtName: TEdit;
     edtValue1: TEdit;
@@ -176,15 +178,12 @@ type
     procedure btnNextScanClick(Sender: TObject);
     procedure btnProcessClick(Sender: TObject);
     procedure btnFirstScanClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
     procedure cbScanTypeChange(Sender: TObject);
     procedure cbValueTypeChange(Sender: TObject);
     procedure chkScriptsItemClick(Sender: TObject; Index: integer);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
-    procedure gbScannerClick(Sender: TObject);
-    procedure ListView1CustomDrawSubItem(Sender: TCustomListView;
-      Item: TListItem; SubItem: Integer; State: TCustomDrawState;
-      var DefaultDraw: Boolean);
     procedure ListView1Data(Sender: TObject; Item: TListItem);
     procedure ltProcessClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
@@ -509,6 +508,24 @@ begin
   false,false,false,true,fastscanmethod,'4',nil);
 end;
 
+procedure TfmCE.Button1Click(Sender: TObject);
+var
+  memrec : TMemoryRecord;
+  val : string;
+begin
+  if recordTable = nil then
+  begin
+    showmessage('You have to opened a process first !');
+  end
+  else
+  begin
+    recordTable.addAddressManually(edit1.Text,vtDword);
+    memrec := recordTable.getRecordWithID(0);
+    val := memrec.GetValue;
+  end;
+
+end;
+
 procedure TfmCE.cbScanTypeChange(Sender: TObject);
 begin
   case cbScanType.ItemIndex of
@@ -569,18 +586,6 @@ begin
      AdjustPrivilege();
      symhandlerInitialize;
      symhandler.loadCommonModuleList;
-end;
-
-procedure TfmCE.gbScannerClick(Sender: TObject);
-begin
-
-end;
-
-procedure TfmCE.ListView1CustomDrawSubItem(Sender: TCustomListView;
-  Item: TListItem; SubItem: Integer; State: TCustomDrawState;
-  var DefaultDraw: Boolean);
-begin
-
 end;
 
 procedure TfmCE.ListView1Data(Sender: TObject; Item: TListItem);
@@ -683,7 +688,6 @@ procedure TfmCE.ScanDone(var message: TMessage);
 begin
   foundlist.Initialize(vtDword, memscan.Getbinarysize, false,
     false, false, false,nil);
-  showmessage(IntToStr(memscan.GetFoundCount));
     Timer1.Enabled:=true;
 end;
 

@@ -2,9 +2,9 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2014/05/15 13:59:56.000.880,=E:\Users\Yohann\Documents\RAD Studio\Projets\Unit1.pas</Transaction>
-    <Transaction>2014/05/15 14:00:28.000.037,E:\Users\Yohann\Documents\RAD Studio\Projets\Unit1.pas=E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\delphi\Main.pas</Transaction>
-    <Transaction>2014/05/15 14:00:28.000.037,E:\Users\Yohann\Documents\RAD Studio\Projets\Unit1.dfm=E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\delphi\Main.dfm</Transaction>
-    <Transaction>2014/05/15 14:00:34.000.067,E:\Users\Yohann\Documents\RAD Studio\Projets\Project1.dproj=E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\delphi\sample.dproj</Transaction>
+    <Transaction>2014/05/15 14:00:28.000.037,E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\delphi\Main.dfm=E:\Users\Yohann\Documents\RAD Studio\Projets\Unit1.dfm</Transaction>
+    <Transaction>2014/05/15 14:00:28.000.037,E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\delphi\Main.pas=E:\Users\Yohann\Documents\RAD Studio\Projets\Unit1.pas</Transaction>
+    <Transaction>2014/05/15 14:00:34.000.067,E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\delphi\sample.dproj=E:\Users\Yohann\Documents\RAD Studio\Projets\Project1.dproj</Transaction>
     <Transaction>2014/05/15 14:01:30.000.698,=E:\Users\Yohann\Documents\GitHub\cheatengine-library\wrapper\delphi\Connector.pas</Transaction>
   </Transactions>
 </BorlandProject>
