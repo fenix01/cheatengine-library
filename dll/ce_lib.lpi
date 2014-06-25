@@ -89,7 +89,7 @@
         <PackageName Value="LCLBase"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="26">
+    <Units Count="27">
       <Unit0>
         <Filename Value="ce_lib.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -219,6 +219,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="settings"/>
       </Unit25>
+      <Unit26>
+        <Filename Value="..\library\scanner.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="scanner"/>
+      </Unit26>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

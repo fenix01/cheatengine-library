@@ -5,7 +5,7 @@ unit MemoryRecordDatabase;
 interface
 
 uses
-  Classes, SysUtils, MemoryRecordUnit, math, CEFuncProc;
+  Classes, SysUtils, MemoryRecordUnit, math, CEFuncProc, Dialogs;
 
 type
 TMemoryRecordTable = class
@@ -117,7 +117,6 @@ var
 begin
   memrec:=TMemoryrecord.Create(self);
   memrec.id:=GetUniqueMemrecId();
-  memrec.isGroupHeader:=false;
   memrec.Description := description;
   memrec.AutoAssemblerData.script:=tstringlist.create;
   memrec.AutoAssemblerData.script.text:=script;
@@ -209,9 +208,9 @@ var mr: TMemoryRecord;
 begin
   mr:=TMemoryrecord.Create(self);
   mr.id:=GetUniqueMemrecId();
-  mr.isGroupHeader:=false;
   mr:=addaddress('No description',initialaddress,[],0, vartype);
   mr.visible:=false;
+  records.Add(mr);
 end;
 
 function TMemoryRecordTable.addaddress(description: string; address: string; const offsets: array of integer; offsetcount: integer;

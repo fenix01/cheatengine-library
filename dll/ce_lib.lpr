@@ -8,7 +8,7 @@ uses
   fileaccess, Filehandler, FileMapping, genericHotkey, hotkeyhandler, hypermode,
   memoryrecorddatabase, MemoryRecordUnit, NewKernelHandler, ProcessHandlerUnit,
   savedscanhandler, symbolhandler, symbollisthandler, PEInfounit, connector,
-  AddressChangeUnit, settings
+  AddressChangeUnit, settings, scanner
   { you can add units after this };
 
 procedure AdjustPrivilege();
@@ -180,7 +180,16 @@ IRemoveScript,
 
 IAddAddressManually,
 IGetValue,
-IProcessAddress;
+IProcessAddress,
+
+IInitMemoryScanner,
+IDeinitMemoryScanner,
+IFirstScan,
+INextScan,
+ICountAddressesFound,
+IRegisterScanDoneCallback,
+IInitializeFoundList,
+IGetAddress;
 
 {$R *.res}
 
