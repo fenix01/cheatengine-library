@@ -1,13 +1,10 @@
 *.bak
 *.exe
 *.dll
-./library/backup/
-./example/c++/x64/
-./example/c++/x64/
-./example/delphi/__history/
+./example/c++/autoassemble/x64/
+./example/c++/scanner/x64/
+./example/delphi/autoassemble/__history/
 ./wrapper/delphi/__history/
-.example/c#/Assembler/bin/
-.example/c#/Assembler/obj/
 ./dll/backup/
 ./dll/lib
 *.o
@@ -22,3 +19,10 @@
 *.rsm
 *.local
 *.identcache
+*.config
+*.pdb
+*.manifest
+*.idb
+*.tlog
+*.lastbuildstate
+*.ilk

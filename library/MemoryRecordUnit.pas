@@ -91,7 +91,6 @@ type
     hknameindex: integer;
 
     Hotkeylist: tlist;
-    fisGroupHeader: Boolean; //set if it's a groupheader, only the description matters then
 
 
     fonactivate, fondeactivate: TMemoryRecordActivateEvent;
@@ -174,9 +173,6 @@ type
 
     procedure disablewithoutexecute;
 
-    procedure getXMLNode(node: TDOMNode; selectedOnly: boolean);
-    procedure setXMLnode(CheatEntry: TDOMNode);
-
     constructor Create(AOwner : TObject);
     destructor destroy; override;
 
@@ -187,7 +183,6 @@ type
     property visible: boolean read fVisible write setVisible;
 
   published
-    property IsGroupHeader: boolean read fisGroupHeader write fisGroupHeader;
     property ID: integer read fID write setID;
     property Color: TColor read fColor write setColor;
     property AddressString: string read getAddressString;
@@ -383,434 +378,6 @@ begin
   fColor:=c;
   //TAddresslist(fOwner).Update;
 end;
-
-procedure TMemoryRecord.setXMLnode(CheatEntry: TDOMNode);
-var
-  tempnode,tempnode2: TDOMNode;
-  i,j,k,l: integer;
-
-  currentEntry: TDOMNode;
-
-  hk: TMemoryRecordHotkey;
-  memrec: TMemoryRecord;
-  a:TDOMNode;
-begin
-  if TDOMElement(CheatEntry).TagName<>'CheatEntry' then exit; //invalid node type
-
-  tempnode:=Cheatentry.FindNode('ID');
-  if tempnode<>nil then
-    id:=strtoint(tempnode.textcontent);
-
-  tempnode:=CheatEntry.FindNode('Description');
-  if tempnode<>nil then
-    Description:=ansitoutf8(tempnode.TextContent);
-
-  if (description<>'') and ((description[1]='"') and (description[length(description)]='"')) then
-    description:=copy(description,2,length(description)-2);
-
-
-  tempnode:=CheatEntry.FindNode('Options');
-  if tempnode<>nil then
-  begin
-    if tempnode.HasAttributes then
-    begin
-      a:=tempnode.Attributes.GetNamedItem('moHideChildren');
-      if (a<>nil) and (a.TextContent='1') then
-          foptions:=foptions+[moHideChildren];
-
-      a:=tempnode.Attributes.GetNamedItem('moBindActivation');
-      if (a<>nil) and (a.TextContent='1') then
-        foptions:=foptions+[moBindActivation];
-
-      a:=tempnode.Attributes.GetNamedItem('moRecursiveSetValue');
-      if (a<>nil) and (a.TextContent='1') then
-        foptions:=foptions+[moRecursiveSetValue];
-
-      a:=tempnode.Attributes.GetNamedItem('moAllowManualCollapseAndExpand');
-      if (a<>nil) and (a.TextContent='1') then
-        foptions:=foptions+[moAllowManualCollapseAndExpand];
-
-    end;
-  end;
-
-
-  tempnode:=CheatEntry.FindNode('ShowAsHex');
-  if tempnode<>nil then
-    fshowashex:=tempnode.textcontent='1';
-
-  tempnode:=CheatEntry.FindNode('ShowAsSigned');
-  if tempnode<>nil then
-  begin
-    fShowAsSignedOverride:=true;
-    fShowAsSigned:=tempnode.textcontent='1';
-  end;
-
-
-  tempnode:=CheatEntry.FindNode('Color');
-  if tempnode<>nil then
-  begin
-    try
-      fColor:=strtoint('$'+tempnode.textcontent);
-    except
-    end;
-  end;
-
-  tempnode:=CheatEntry.FindNode('GroupHeader');
-  if tempnode<>nil then
-  begin
-    fisGroupHeader:=tempnode.TextContent='1';
-  end;
-
-
-  tempnode:=CheatEntry.FindNode('CheatEntries');
-  if tempnode<>nil then
-  begin
-    currentEntry:=tempnode.FirstChild;
-    while currentEntry<>nil do
-    begin
-      //create a blank entry
-      memrec:=TMemoryRecord.create(fOwner);
-
-
-      //fill the entry with the node info
-      memrec.setXMLnode(currentEntry);
-      currentEntry:=currentEntry.NextSibling;
-    end;
-
-  end;
-
-
-
-  begin
-    tempnode:=CheatEntry.FindNode('VariableType');
-    if tempnode<>nil then
-      VarType:=StringToVariableType(tempnode.TextContent);
-
-    case VarType of
-      vtCustom:
-      begin
-        tempnode:=CheatEntry.FindNode('CustomType');
-        if tempnode<>nil then
-          setCustomTypeName(tempnode.TextContent);
-      end;
-
-      vtBinary:
-      begin
-        tempnode:=CheatEntry.FindNode('BitStart');
-        if tempnode<>nil then
-          extra.bitData.Bit:=strtoint(tempnode.TextContent);
-
-        tempnode:=CheatEntry.FindNode('BitLength');
-        if tempnode<>nil then
-          extra.bitData.bitlength:=strtoint(tempnode.TextContent);
-
-        tempnode:=CheatEntry.FindNode('ShowAsBinary');
-        if tempnode<>nil then
-          extra.bitData.ShowAsBinary:=tempnode.TextContent='1';
-      end;
-
-      vtString:
-      begin
-        tempnode:=CheatEntry.FindNode('Length');
-        if tempnode<>nil then
-          extra.stringData.length:=strtoint(tempnode.TextContent);
-
-        tempnode:=CheatEntry.FindNode('Unicode');
-        if tempnode<>nil then
-          extra.stringData.Unicode:=tempnode.TextContent='1';
-
-        tempnode:=CheatEntry.FindNode('ZeroTerminate');
-        if tempnode<>nil then
-          extra.stringdata.ZeroTerminate:=tempnode.TextContent='1';
-      end;
-
-      vtByteArray:
-      begin
-        tempnode:=CheatEntry.FindNode('ByteLength');
-        if tempnode<>nil then
-          extra.byteData.bytelength:=strtoint(tempnode.TextContent);
-      end;
-
-      vtAutoAssembler:
-      begin
-        tempnode:=Cheatentry.FindNode('AssemblerScript');
-
-        if tempnode<>nil then
-        begin
-          if AutoAssemblerData.script<>nil then
-            freeAndNil(AutoAssemblerData.script);
-
-          setlength(AutoAssemblerData.allocs,0);
-          if AutoAssemblerData.registeredsymbols<>nil then
-            freeandnil(AutoAssemblerData.registeredsymbols);
-
-          AutoAssemblerData.script:=tstringlist.Create;
-          AutoAssemblerData.script.text:=tempnode.TextContent;
-
-        end;
-      end;
-
-    end;
-
-    tempnode:=CheatEntry.FindNode('Address');
-    if tempnode<>nil then
-      interpretableaddress:=tempnode.TextContent;
-
-
-    tempnode:=CheatEntry.FindNode('Offsets');
-    if tempnode<>nil then
-    begin
-      setlength(pointeroffsets,tempnode.ChildNodes.Count);
-      j:=0;
-      for i:=0 to tempnode.ChildNodes.Count-1 do
-      begin
-
-        if tempnode.ChildNodes[i].NodeName='Offset' then
-        begin
-          pointeroffsets[j]:=strtoint('$'+tempnode.ChildNodes[i].TextContent);
-          inc(j);
-        end;
-      end;
-
-      setlength(pointeroffsets,j); //set to the proper size
-    end;
-
-    tempnode:=CheatEntry.FindNode('Hotkeys');
-
-    if tempnode<>nil then
-    begin
-      while hotkeycount>0 do //erase the old hotkey list
-        hotkey[0].free;
-
-
-      for i:=0 to tempnode.ChildNodes.count-1 do
-      begin
-        hk:=TMemoryRecordHotkey.Create(self);
-
-        if tempnode.ChildNodes[i].NodeName='Hotkey' then
-        begin
-          hk.value:='';
-          ZeroMemory(@hk.keys,sizeof(TKeyCombo));
-
-          tempnode2:=tempnode.childnodes[i].FindNode('Description');
-          if tempnode2<>nil then
-            hk.fdescription:=tempnode2.textcontent;
-
-          tempnode2:=tempnode.childnodes[i].FindNode('ID');
-
-          if tempnode2<>nil then
-            hk.fid:=strtoint(tempnode2.textcontent);
-
-
-          tempnode2:=tempnode.childnodes[i].FindNode('Action');
-          if tempnode2<>nil then
-            hk.action:=TextToMemRecHotkeyAction(tempnode2.TextContent);
-
-          tempnode2:=tempnode.childnodes[i].findnode('Value');
-          if tempnode2<>nil then
-            hk.value:=tempnode2.TextContent;
-
-          tempnode2:=tempnode.ChildNodes[i].FindNode('Keys');
-          if tempnode2<>nil then
-          begin
-            l:=0;
-            for k:=0 to tempnode2.ChildNodes.Count-1 do
-            begin
-              if tempnode2.ChildNodes[k].NodeName='Key' then
-              begin
-                try
-                  hk.keys[l]:=StrToInt(tempnode2.ChildNodes[k].TextContent);
-                  inc(l);
-                except
-                end;
-              end;
-            end;
-
-          end;
-        end;
-      end;
-
-      //check if a hotkey has an id, and if not create one for it
-      for i:=0 to HotkeyCount-1 do
-        if hotkey[i].id=-1 then
-          hotkey[i].fid:=getuniquehotkeyid;
-    end;
-    ReinterpretAddress;
-  end;
-
-
-end;
-
-procedure TMemoryRecord.getXMLNode(node: TDOMNode; selectedOnly: boolean);
-var
-  doc: TDOMDocument;
-  cheatEntry: TDOMNode;
-  cheatEntries: TDOMNode;
-  offsets: TDOMNode;
-  hks, hk,hkkc: TDOMNode;
-  opt: TDOMNode;
-
-  i,j: integer;
-  a:TDOMAttr;
-
-  s: ansistring;
-begin
-  if selectedonly then
-  begin
-    if (not isselected) then exit; //don't add if not selected and only the selected items should be added
-
-  end;
-
-
-  doc:=node.OwnerDocument;
-  cheatEntry:=doc.CreateElement('CheatEntry');
-  cheatEntry.AppendChild(doc.CreateElement('ID')).TextContent:=IntToStr(ID);
-
-
-
-  s:=utf8tosys(description);
-  cheatEntry.AppendChild(doc.CreateElement('Description')).TextContent:='"'+s+'"';
-
-  //save options
-  //(moHideChildren, moBindActivation, moRecursiveSetValue);
-  if options<>[] then
-  begin
-    opt:=cheatEntry.AppendChild(doc.CreateElement('Options'));
-
-    if moHideChildren in options then
-    begin
-      a:=doc.CreateAttribute('moHideChildren');
-      a.TextContent:='1';
-      opt.Attributes.SetNamedItem(a);
-    end;
-
-    if moBindActivation in options then
-    begin
-      a:=doc.CreateAttribute('moBindActivation');
-      a.TextContent:='1';
-      opt.Attributes.SetNamedItem(a);
-    end;
-
-    if moRecursiveSetValue in options then
-    begin
-      a:=doc.CreateAttribute('moRecursiveSetValue');
-      a.TextContent:='1';
-      opt.Attributes.SetNamedItem(a);
-    end;
-
-    if moAllowManualCollapseAndExpand in options then
-    begin
-      a:=doc.CreateAttribute('moAllowManualCollapseAndExpand');
-      a.TextContent:='1';
-      opt.Attributes.SetNamedItem(a);
-    end;
-
-
-  end;
-
-  if showAsHex then
-    cheatEntry.AppendChild(doc.CreateElement('ShowAsHex')).TextContent:='1';
-
-  if fShowAsSignedOverride then
-  begin
-    if fShowAsSigned then
-      cheatEntry.AppendChild(doc.CreateElement('ShowAsSigned')).TextContent:='1'
-    else
-      cheatEntry.AppendChild(doc.CreateElement('ShowAsSigned')).TextContent:='0';
-  end;
-
-
-  cheatEntry.AppendChild(doc.CreateElement('Color')).TextContent:=inttohex(fcolor,6);
-
-  if fisGroupHeader then
-  begin
-    cheatEntry.AppendChild(doc.CreateElement('GroupHeader')).TextContent:='1';
-  end
-  else
-  begin
-    cheatEntry.AppendChild(doc.CreateElement('VariableType')).TextContent:=VariableTypeToString(vartype);
-    case VarType of
-      vtCustom:
-      begin
-        cheatentry.AppendChild(doc.CreateElement('CustomType')).TextContent:=CustomTypeName;
-      end;
-
-      vtBinary:
-      begin
-        cheatEntry.AppendChild(doc.CreateElement('BitStart')).TextContent:=inttostr(extra.bitData.Bit);
-        cheatEntry.AppendChild(doc.CreateElement('BitLength')).TextContent:=inttostr(extra.bitData.BitLength);
-        cheatEntry.AppendChild(doc.CreateElement('ShowAsBinary')).TextContent:=BoolToStr(extra.bitData.showasbinary,'1','0');
-      end;
-
-      vtString:
-      begin
-        cheatEntry.AppendChild(doc.CreateElement('Length')).TextContent:=inttostr(extra.stringData.length);
-        cheatEntry.AppendChild(doc.CreateElement('Unicode')).TextContent:=BoolToStr(extra.stringData.unicode,'1','0');
-        cheatEntry.AppendChild(doc.CreateElement('ZeroTerminate')).TextContent:=BoolToStr(extra.stringData.ZeroTerminate,'1','0');
-
-      end;
-
-      vtByteArray:
-      begin
-        cheatEntry.AppendChild(doc.CreateElement('ByteLength')).TextContent:=inttostr(extra.byteData.bytelength);
-      end;
-
-      vtAutoAssembler:
-      begin
-        cheatEntry.AppendChild(doc.CreateElement('AssemblerScript')).TextContent:=AutoAssemblerData.script.Text;
-      end;
-    end;
-
-    if VarType<>vtAutoAssembler then
-    begin
-      cheatEntry.AppendChild(doc.CreateElement('Address')).TextContent:=interpretableaddress;
-
-      if isPointer then
-      begin
-        Offsets:=cheatEntry.AppendChild(doc.CreateElement('Offsets'));
-
-        for i:=0 to length(pointeroffsets)-1 do
-          Offsets.AppendChild(doc.CreateElement('Offset')).TextContent:=inttohex(pointeroffsets[i],1);
-
-        cheatEntry.AppendChild(Offsets);
-      end;
-    end;
-
-
-  end;
-
-  //hotkeys
-
-  if HotkeyCount>0 then
-  begin
-    hks:=cheatentry.AppendChild(doc.CreateElement('Hotkeys'));
-    for i:=0 to HotkeyCount-1 do
-    begin
-      hk:=hks.AppendChild(doc.CreateElement('Hotkey'));
-      hk.AppendChild(doc.CreateElement('Action')).TextContent:=MemRecHotkeyActionToText(hotkey[i].action);
-      hkkc:=hk.AppendChild(doc.createElement('Keys'));
-      j:=0;
-      while (j<5) and (hotkey[i].keys[j]<>0) do
-      begin
-        hkkc.appendchild(doc.createElement('Key')).TextContent:=inttostr(hotkey[i].keys[j]);
-        inc(j);
-      end;
-
-      if hotkey[i].value<>'' then
-        hk.AppendChild(doc.CreateElement('Value')).TextContent:=hotkey[i].value;
-
-      if hotkey[i].description<>'' then
-        hk.AppendChild(doc.CreateElement('Description')).TextContent:=hotkey[i].description;
-
-      if hotkey[i].id>=0 then
-        hk.AppendChild(doc.CreateElement('ID')).TextContent:=inttostr(hotkey[i].id);
-    end;
-
-  end;
-
-  node.AppendChild(cheatEntry);
-end;
-
 
 procedure TMemoryRecord.setShowAsSigned(state: boolean);
 begin
@@ -1056,9 +623,6 @@ begin
       if not fondeactivate(self, true, fActive) then exit;
   end;
 
-
-  if not fisGroupHeader then
-  begin
     if self.VarType = vtAutoAssembler then
     begin
       //aa script
@@ -1099,8 +663,6 @@ begin
 
       fActive:=state;
     end;
-
-  end else fActive:=state;
 
 
   if state=false then
@@ -1198,7 +760,7 @@ var oldvalue, newvalue: string;
   olddecimalvalue, newdecimalvalue: qword;
   oldfloatvalue, newfloatvalue: double;
 begin
-  if (not fisgroupheader) and active and (VarType<>vtAutoAssembler) then
+  if active and (VarType<>vtAutoAssembler) then
   begin
     try
 
@@ -1301,7 +863,7 @@ end;
 
 function TMemoryRecord.GetValue: string;
 var
-  br: dword;
+  br: PtrUInt;
   bufsize: integer;
   buf: pointer;
   pb: pbyte absolute buf;
@@ -1317,8 +879,10 @@ var
 
   i: integer;
 begin
+
+
+
   result:='';
-  if fisGroupHeader then exit;
 
   bufsize:=getbytesize;
   if bufsize=0 then exit;
@@ -1421,7 +985,7 @@ Changes this address to the value V
 var
   buf: pointer;
   bufsize: integer;
-  x: dword;
+  x: PtrUInt;
   i: integer;
   pb: pbyte absolute buf;
   pba: pbytearray absolute buf;
@@ -1733,4 +1297,5 @@ begin
 end;
 
 end.
+
 

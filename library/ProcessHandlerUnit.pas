@@ -10,22 +10,28 @@ process will set it to the different tab's process
 
 interface
 
-uses LCLIntf, newkernelhandler;
+uses LCLIntf, newkernelhandler, classes;
+
+type
+  TSystemArchitecture=(archX86=0, archArm=1);
 
 type TProcessHandler=class
   private
     fis64bit: boolean;
     fprocesshandle: THandle;
     fpointersize: integer;
+    fSystemArchitecture: TSystemArchitecture;
     procedure setIs64bit(state: boolean);
     procedure setProcessHandle(processhandle: THandle);
   public
     processid: dword;
 
+
     procedure Open;
     property is64Bit: boolean read fIs64Bit;
     property pointersize: integer read fPointersize;
     property processhandle: THandle read fProcessHandle write setProcessHandle;
+    property SystemArchitecture: TSystemArchitecture read fSystemArchitecture;
 end;
 
 implementation

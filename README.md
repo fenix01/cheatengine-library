@@ -18,21 +18,24 @@ Features :
     INCLUDE
     READMEM
     LOADLIBRARY
+- scan the memory to find specific addresses
 
-What's new ?
+1.1.0:
+- adding the memory scanner
 
 1.0.1 :
-- added a c#wrapper and a c# example
+- adding a c#wrapper and a c# example
 
 1.0.0 :
-- added the compiled library in the release page
-- added a dll directory for anyone who wants to customize this dll
-- added a wrapper directory that contains headers for various programming languages. (c++, delphi, c#)
-- added a c++ example to call the dll
-- added a new function to the library to remove a script 
+- adding the compiled library in the release page
+- adding a dll directory for anyone who wants to customize this dll
+- adding a wrapper directory that contains headers for various programming languages. (c++, delphi, c#)
+- adding a c++ example to call the dll
+- adding a new function to the library to remove a script 
 
 0.9.9 :
-- added the source code for cheatengine-library
+- adding the source code for cheatengine-library
+- starting the cheat engine library project
 
 Where should I begin ?
 

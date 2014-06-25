@@ -144,7 +144,7 @@ end;
 
 procedure TPEInfo.getPE();
 var address: ptrUint;
-    actualread: dword;
+    actualread: ptrUint;
     headersize: dword;
     imagesize: dword;
     imagesizes: string;

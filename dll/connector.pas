@@ -6,20 +6,46 @@ interface
 
 uses
   Classes, SysUtils, symbolhandler, CEFuncProc, windows, PEInfounit,
-  MemoryRecordDatabase, MemoryRecordUnit, Dialogs;
+  MemoryRecordDatabase, MemoryRecordUnit, Dialogs, AddressChangeUnit,
+  memscan,scanner, CustomTypeHandler;
 
 //procedure ILoadCommonModuleList; stdcall;
 procedure IGetProcessList(out processes : WideString);stdcall;
 //procedure IGetModuleList(withSystemModules: boolean ; out modules : WideString);stdcall;
 procedure IOpenProcess(pid : WideString);stdcall;
+
+//control the virtual cheat table
 procedure IResetScripts();stdcall;
 procedure IAddScript(name : WideString; script : WideString);stdcall;
 procedure IRemoveScript(id : integer); stdcall;
 procedure IActivateScript(id : integer; activate : boolean);stdcall;
 
+//control an address from the virtual cheat table
+procedure IAddAddressManually(initialaddress: WideString=''; vartype: TVariableType=vtDword);stdcall;
+procedure IGetValue(id : integer ; out value : WideString);stdcall;
+
+//control the memory scanner
+procedure IInitMemoryScanner(); stdcall;
+procedure IDeinitMemoryScanner(); stdcall;
+
+procedure IFirstScan(scanOption: TScanOption; VariableType: TVariableType;
+  roundingtype: TRoundingType; scanvalue1, scanvalue2: WideString; startaddress,stopaddress: WideString;
+  hexadecimal,binaryStringAsDecimal,unicode,casesensitive: boolean; fastscanmethod: TFastScanMethod=fsmNotAligned;
+  fastscanparameter: WideString=''); stdcall;
+
+procedure INextScan(scanOption: TScanOption; roundingtype: TRoundingType;
+  scanvalue1, scanvalue2: string;
+  hexadecimal,binaryStringAsDecimal, unicode, casesensitive,percentage,compareToSavedScan: boolean;
+  savedscanname: string); stdcall; //next scan, determine what kind of scan and give to firstnextscan/nextnextscan
+
+function ICountAddressesFound():uint64; stdcall;
+procedure IRegisterScanDoneCallback(fun : TOnScanDoneCallback);stdcall;
+procedure IInitializeFoundList();stdcall;
+procedure IGetAddress(i: qword;out address: WideString; out value: WideString)stdcall;
 
 var
   recordTable : TMemoryRecordTable;
+  scanner_ : TScanner;
 
 implementation
 
@@ -190,6 +216,100 @@ begin
      recordTable.ActivateSelected(ftFrozen)
   else
      recordTable.DeactivateSelected;
+end;
+
+procedure IAddAddressManually(initialaddress: WideString=''; vartype: TVariableType=vtDword);stdcall;
+var
+  memrec : TMemoryRecord;
+begin
+  if recordTable <> nil then
+    begin
+      recordTable.addAddressManually(initialaddress,vartype);
+    end;
+end;
+
+procedure IGetValue(id : integer ; out value : WideString);stdcall;
+var
+  memrec : TMemoryRecord;
+begin
+    memrec := recordTable.getRecordWithID(id);
+    value := memrec.GetValue;
+end;
+
+procedure IInitMemoryScanner(); stdcall;
+begin
+  if (assigned(scanner_)) then IDeinitMemoryScanner();
+  scanner_ := TScanner.Create();
+  scanner_.addScanner();
+end;
+
+procedure IDeinitMemoryScanner(); stdcall;
+begin
+  scanner_.state^.foundlist.Free;
+  scanner_.state^.memscan.Free;
+  scanner_.Free;
+  scanner_ := nil;
+end;
+
+procedure IFirstScan(scanOption: TScanOption; VariableType: TVariableType;
+  roundingtype: TRoundingType; scanvalue1, scanvalue2: WideString; startaddress,stopaddress: WideString;
+  hexadecimal,binaryStringAsDecimal,unicode,casesensitive: boolean; fastscanmethod: TFastScanMethod=fsmNotAligned;
+  fastscanparameter: WideString=''); stdcall;
+var
+  scanstart,scanend : PtrUint;
+begin
+  scanstart := StrToQWordEx(startaddress);
+  scanend := StrToQWordEx(stopaddress);
+  scanner_.state^.memscan.firstscan(scanOption,VariableType,roundingtype,scanvalue1,
+  scanvalue2,scanstart,scanend,hexadecimal,binaryStringAsDecimal,
+  unicode,casesensitive,fastscanmethod,fastscanparameter);
+end;
+
+procedure INextScan(scanOption: TScanOption; roundingtype: TRoundingType;
+  scanvalue1, scanvalue2: string;
+  hexadecimal,binaryStringAsDecimal, unicode, casesensitive,percentage,compareToSavedScan: boolean;
+  savedscanname: string); stdcall;
+begin
+  scanner_.state^.memscan.NextScan(scanOption,roundingtype,scanvalue1,scanvalue2,hexadecimal,
+  binaryStringAsDecimal,unicode,casesensitive,percentage,compareToSavedScan,savedscanname);
+end;
+
+function ICountAddressesFound():uint64; stdcall;
+begin
+  if assigned(scanner_) and assigned(scanner_.state^.foundlist) then
+    result := scanner_.state^.foundlist.count
+  else result := -1;
+end;
+
+procedure IRegisterScanDoneCallback(fun : TOnScanDoneCallback);stdcall;
+begin
+  if assigned(scanner_) then
+    scanner_.scandone := fun;
+end;
+
+procedure IInitializeFoundList();stdcall;
+begin
+  if assigned(scanner_) then
+    scanner_.state^.foundlist.Initialize();
+end;
+
+procedure IGetAddress(i: qword;out address: WideString; out value: WideString)stdcall;
+var
+  address_ : PtrUint;
+  value_ : string;
+  extra : dword;
+begin
+  if assigned(scanner_) then
+  begin
+    address_ := scanner_.state^.foundlist.GetAddress(i,extra,value_);
+    address := IntToHex(address_,8);
+    value := value_;
+  end
+  else begin
+    address := 'null';
+    value := 'null';
+  end;
+
 end;
 
 end.

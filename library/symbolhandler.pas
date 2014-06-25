@@ -53,6 +53,7 @@ type TModuleInfo=record
   baseaddress: ptrUint;
   basesize: dword;
   is64bitmodule: boolean;
+  symbolsLoaded: boolean; //true if the api symbols have been handled
 end;
 
 type TUserdefinedSymbolCallback=procedure;
@@ -77,6 +78,7 @@ type
     procedure finishedLoadingSymbols;
   public
     isloading: boolean;
+    apisymbolsloaded: boolean;
     error: boolean;
     symbolsloaded: boolean;
 
@@ -134,6 +136,9 @@ type
     function GetUserdefinedSymbolByNameIndex(symbolname:string):integer;
     function GetUserdefinedSymbolByAddressIndex(address: ptruint):integer;
 
+    function areSymbolsLoadedForModule(symbolname: string): boolean;
+    procedure markModuleAsLoaded(address: ptruint); //called by the symbolhandlerthread
+
     procedure setshowmodules(x: boolean); //todo: Move this to the disassembler and let that decide
     procedure setshowsymbols(x: boolean);
     procedure tokenize(s: string; var tokens: TTokens);
@@ -154,7 +159,9 @@ type
     property usedprocessid: dword read getusedprocessid;
     property isloaded: boolean read getisloaded;
     property hasError: boolean read geterror;
-    procedure waitforsymbolsloaded;
+
+    procedure waitforsymbolsloaded(apisymbolsonly: boolean=false; specificmodule: string='');
+
     procedure reinitialize(force: boolean=false);
     function loadmodulelist: boolean; //returns true if a change was detected from the previous list
     procedure ReinitializeUserdefinedSymbolList;
@@ -487,45 +494,48 @@ end;
 function RegToString(reg: integer): string;
 begin
   result:='';
-  if processhandler.is64bit then
-  begin
-    case reg of
-      CV_REG_NONE: result:='';
-      CV_AMD64_RAX : result:='RAX';
-      CV_AMD64_RCX : result:='RCX';
-      CV_AMD64_RDX : result:='RDX';
-      CV_AMD64_RBX : result:='RBX';
-      CV_AMD64_RSP : result:='RSP';
-      CV_AMD64_RBP : result:='RBP';
-      CV_AMD64_RSI : result:='RSI';
-      CV_AMD64_RDI : result:='RDI';
-      CV_AMD64_R8 : result:='R8';
-      CV_AMD64_R9 : result:='R9';
-      CV_AMD64_R10: result:='R10';
-      CV_AMD64_R11: result:='R11';
-      CV_AMD64_R12: result:='R12';
-      CV_AMD64_R13: result:='R13';
-      CV_AMD64_R14: result:='R14';
-      CV_AMD64_R15: result:='R15';
-      else
-        result:='?';
-    end;
-  end
-  else
-  begin
-    case reg of
-      CV_REG_NONE: result:='';
-      CV_REG_EAX : result:='EAX';
-      CV_REG_ECX : result:='ECX';
-      CV_REG_EDX : result:='EDX';
-      CV_REG_EBX : result:='EBX';
-      CV_REG_ESP : result:='ESP';
-      CV_REG_EBP : result:='EBP';
-      CV_REG_ESI : result:='ESI';
-      CV_REG_EDI : result:='EDI';
-      else
-        result:='?';
-    end;
+
+  case reg of
+    CV_REG_NONE: result:='';
+    CV_ALLREG_ERR   : result:='ERR';
+    CV_ALLREG_TEB   : result:='TEB';
+    CV_ALLREG_TIMER : result:='TIMER';
+    CV_ALLREG_EFAD1 : result:='EFAD1';
+    CV_ALLREG_EFAD2 : result:='EFAD2';
+    CV_ALLREG_EFAD3 : result:='EFAD3';
+    CV_ALLREG_VFRAME: result:='VFRAME';
+    CV_ALLREG_HANDLE: result:='HANDLE';
+    CV_ALLREG_PARAMS: result:='PARAMS';
+    CV_ALLREG_LOCALS: result:='LOCALS';
+    CV_ALLREG_TID   : result:='TID';
+    CV_ALLREG_ENV   : result:='ENV';
+    CV_ALLREG_CMDLN : result:='CMDLN';
+    CV_AMD64_RAX    : result:='RAX';
+    CV_AMD64_RCX    : result:='RCX';
+    CV_AMD64_RDX    : result:='RDX';
+    CV_AMD64_RBX    : result:='RBX';
+    CV_AMD64_RSP    : result:='RSP';
+    CV_AMD64_RBP    : result:='RBP';
+    CV_AMD64_RSI    : result:='RSI';
+    CV_AMD64_RDI    : result:='RDI';
+    CV_AMD64_R8     : result:='R8';
+    CV_AMD64_R9     : result:='R9';
+    CV_AMD64_R10    : result:='R10';
+    CV_AMD64_R11    : result:='R11';
+    CV_AMD64_R12    : result:='R12';
+    CV_AMD64_R13    : result:='R13';
+    CV_AMD64_R14    : result:='R14';
+    CV_AMD64_R15    : result:='R15';
+    CV_REG_EAX      : result:='EAX';
+    CV_REG_ECX      : result:='ECX';
+    CV_REG_EDX      : result:='EDX';
+    CV_REG_EBX      : result:='EBX';
+    CV_REG_ESP      : result:='ESP';
+    CV_REG_EBP      : result:='EBP';
+    CV_REG_ESI      : result:='ESI';
+    CV_REG_EDI      : result:='EDI';
+    else
+      result:='?';
   end;
 
 
@@ -987,18 +997,25 @@ begin
   ReinitializeUserdefinedSymbolList;
 end;
 
-procedure TSymhandler.Waitforsymbolsloaded;
+procedure TSymhandler.Waitforsymbolsloaded(apisymbolsonly: boolean=false; specificmodule: string='');
+var checkcondition: pboolean;
 begin
   symbolloadervalid.beginread;
+
   if symbolloaderthread<>nil then
   begin
-    while symbolloaderthread.isloading do  //waitfor does not work if called from a second layer syncronize (fpc bug ?)
+    while (symbolloaderthread.isloading) and
+          not
+          (
+            (apisymbolsonly and symbolloaderthread.apisymbolsloaded) or  //true if all the symbols are loaded
+            ((specificmodule<>'') and areSymbolsLoadedForModule(specificModule)) //true if the module's symbols are loaded
+          )
+    do
     begin
-      sleep(10);
+      sleep(25);
       if GetCurrentThreadID = MainThreadID then
-        CheckSynchronize(0);
+        CheckSynchronize;
     end;
-
   end;
 
   symbolloadervalid.endread;
@@ -1385,6 +1402,30 @@ function TSymhandler.inModule(address: ptrUint): BOOLEAN; //returns true if the 
 var mi: TModuleInfo;
 begin
   result:=getmodulebyaddress(address,mi);
+end;
+
+function TSymhandler.areSymbolsLoadedForModule(symbolname: string): boolean;
+var mi: TModuleInfo;
+begin
+  if getmodulebyname(symbolname,mi) then
+    result:=mi.symbolsLoaded
+  else
+    result:=false;
+end;
+
+procedure TSymhandler.markModuleAsLoaded(address: ptruint);
+var i: integer;
+begin
+  modulelistMREW.beginread;
+  for i:=0 to modulelistpos-1 do
+  begin
+    if (address>=modulelist[i].baseaddress) and (address<modulelist[i].baseaddress+modulelist[i].basesize) then
+    begin
+      modulelist[i].symbolsLoaded:=true;
+      break;
+    end;
+  end;
+  modulelistMREW.endread;
 end;
 
 function TSymhandler.getmodulebyaddress(address: ptrUint; var mi: TModuleInfo):BOOLEAN;
@@ -1904,8 +1945,9 @@ var
 
   is64bitprocess: boolean;
 
-
 begin
+
+
   result:=false;
   is64bitprocess:=processhandler.is64Bit;
 
@@ -1918,23 +1960,27 @@ begin
     else
       processid:=cefuncproc.ProcessID;
 
+    if processid=0 then exit;
+
+    modulelistMREW.beginread;
+
+    //make a copy of the old list addresses to compare against
+    setlength(oldmodulelist, modulelistpos);
+    for i:=0 to modulelistpos-1 do
+      oldmodulelist[i]:=modulelist[i].baseaddress;
+
+    modulelistMREW.Endread;
+
+
+    //Note: Just TH32CS_SNAPMODULE32 will result in an empty list
+    //Just TH32CS_SNAPMODULE only returns the 64-bit modules
+    //There doesn't seem to be a way to make two lists, 32-bit, then 64-bit, and combine them afterwards
+    //So for now I just check if it's a system dll, and if so, if it's in the wow64 folder or not
+    ths:=CreateToolhelp32Snapshot(TH32CS_SNAPMODULE or TH32CS_SNAPMODULE32,processid);
+
     modulelistMREW.BeginWrite;
     try
-      if processid=0 then exit;
-
-
-      //make a copy of the old list addresses to compare against
-      setlength(oldmodulelist, modulelistpos);
-      for i:=0 to modulelistpos-1 do
-        oldmodulelist[i]:=modulelist[i].baseaddress;
-
       modulelistpos:=0;
-
-      //Note: Just TH32CS_SNAPMODULE32 will result in an empty list
-      //Just TH32CS_SNAPMODULE only returns the 64-bit modules
-      //There doesn't seem to be a way to make two lists, 32-bit, then 64-bit, and combine them afterwards
-      //So for now I just check if it's a system dll, and if so, if it's in the wow64 folder or not
-      ths:=CreateToolhelp32Snapshot(TH32CS_SNAPMODULE or TH32CS_SNAPMODULE32,processid);
 
       if ths<>0 then
       begin
@@ -1945,7 +1991,11 @@ begin
             if module32first(ths,me32) then
             repeat
               x:=me32.szExePath;
-              modulename:=extractfilename(x);
+              if (x[0]<>'[') then //do not extract the filename if it's a 'special' marker
+                modulename:=extractfilename(x)
+              else
+                modulename:=x;
+
 
               alreadyInTheList:=false;
               //check if this modulename is already in the list, and if so check if it's the same base, else add it
@@ -1956,6 +2006,7 @@ begin
                   alreadyInTheList:=true;
                   break; //it's in the list, no need to continue looking, break out of the for loop
                 end;
+
               end;
 
               if not alreadyInTheList then
@@ -2048,7 +2099,7 @@ var i: integer;
     off: string;
     realaddress, realaddress2: ptrUint;
     check: boolean;
-    count: dword;
+    count: PtrUInt;
 begin
   result:=0;
   error:=true;
@@ -2291,8 +2342,11 @@ begin
 {$ifdef cpu32}
   dbghlp:=LoadLibrary(pchar(CheatEngineDir+'\win32\dbghelp.dll'));
 {$else}
-  dbghlp:=loadlibrary('Dbghelp.dll');
+  dbghlp:=LoadLibrary(pchar(CheatEngineDir+'\win64\dbghelp.dll'));
 {$endif}
+  if dbghlp=0 then //fallback to the search path
+    dbghlp:=loadlibrary('Dbghelp.dll');
+
   SymFromName:=GetProcAddress(dbghlp,'SymFromName');
   SymFromAddr:=GetProcAddress(dbghlp,'SymFromAddr');
 
