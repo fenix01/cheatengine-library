@@ -1,16 +1,15 @@
 unit scanner;
 
-{$mode objfpc}{$H+}
+{$MODE Delphi}
 
 interface
 
 uses
-  Classes,memscan, foundlisthelper, windows, dialogs;
+  Classes,memscan, foundlisthelper, windows, CEFuncProc,dialogs,SysUtils,ComCtrls;
 
 const
   foundlistDisplayOverride = 0;
-
-type TOnScanDoneCallback = procedure ();
+  wm_scandone = WM_APP + 2;
 
 type
 TScanState = record
@@ -139,47 +138,73 @@ end;
 PScanState = ^TScanState;
 
   type
-  TScanner = class(TObject)
+  TIScanner = class(TObject)
   public
-    state : PScanState;
-    scandone : TOnScanDoneCallback;
-    procedure addScanner();
+    foundlist : TFoundList;
+    memscan : Tmemscan;
+    hwnd : THandle;
+    constructor Create(hwnd : THandle);
+    constructor Create(hwnd : THandle ; list : TListView); overload;
+    destructor Destroy();
   private
+    state : PScanState;
+    procedure addScanner();
     procedure SetupInitialScanTabState(scanstate: PScanState;
     IsFirstEntry: boolean);
-    procedure OnScanDone(Sender: TObject);
     end;
 
 implementation
 
-procedure TScanner.addScanner();
+procedure TIScanner.addScanner();
 var
    newstate: PScanState;
 begin
    getmem(newstate, sizeof(TScanState));
    SetupInitialScanTabState(newstate, True);
    Self.state := newstate;
-   Self.state^.memscan.OnScanDone := @OnScanDone;
 end;
 
-procedure TScanner.SetupInitialScanTabState(scanstate: PScanState;
+procedure TIScanner.SetupInitialScanTabState(scanstate: PScanState;
   IsFirstEntry: boolean);
 begin
   ZeroMemory(scanstate, sizeof(TScanState));
-  scanstate^.memscan := tmemscan.Create(nil);
-  scanstate^.foundlist := TFoundList.Create(nil, scanstate^.memscan);    //build again
-    //scanstate^.memscan.setScanDoneCallback(fmCE.handle, wm_scandone);
 
+  if IsFirstEntry then
+  begin
+    scanstate.memscan := memscan;
+    scanstate.foundlist := foundlist;
+  end
+  else
+  begin
+    scanstate.memscan := tmemscan.Create(nil);
+    scanstate.foundlist := TFoundList.Create(nil, scanstate^.memscan);    //build again
+  end;
+  scanstate.memscan.setScanDoneCallback(hwnd, WM_SCANDONE);
   //initial scans don't have a previous scan
-  scanstate^.lblcompareToSavedScan.Visible := False;
-  scanstate^.compareToSavedScan := False;
-
+  scanstate.lblcompareToSavedScan.Visible := False;
+  scanstate.compareToSavedScan := False;
 end;
 
-procedure TScanner.OnScanDone(Sender : TObject);
+constructor TIScanner.Create(hwnd : THandle);
 begin
-  showmessage('ok');
-  scandone();
+  self.hwnd:=hwnd;
+  memscan := Tmemscan.create(nil);
+  foundlist := TFoundList.create(nil,memscan);
+  addScanner();
+end;
+
+constructor TIScanner.Create(hwnd : THandle ; list : TListView); overload;
+begin
+  self.hwnd:=hwnd;
+  memscan := Tmemscan.create(nil);
+  foundlist := TFoundList.create(list,memscan);
+  addScanner();
+end;
+
+destructor TIScanner.Destroy();
+begin
+  foundlist.Free;
+  memscan.Free;
 end;
 
 end.

@@ -486,6 +486,10 @@ type
     haserror: boolean;
     errorstring: string;
 
+    //messages
+    notifywindow: thandle;
+    notifymessage: integer;
+
     //OnlyOne vars
     OnlyOne: boolean;
     FoundSomething: Boolean;
@@ -502,7 +506,6 @@ type
     Configures the gui and related objects and launch TScanner objects with those objects
   }
   private
-    fScanDone : TNotifyEvent;
     previousMemoryBuffer: pointer;
     scanController: TScanController; //thread that configures the scanner threads and wait till they are done
     SaveFirstScanThread: TSaveFirstScanThread; //thread that will save the results of the first scan that can be used for "same as first scan" scans
@@ -510,6 +513,8 @@ type
     memRegionPos: integer;
 
     progressbar: TCustomProgressBar;
+    notifywindow: thandle;
+    notifymessage: integer;
 
     currentVariableType: TVariableType;
     currentCustomType: TCustomType;
@@ -575,6 +580,8 @@ type
     procedure NextScan(scanOption: TScanOption; roundingtype: TRoundingType; scanvalue1, scanvalue2: string; hexadecimal,binaryStringAsDecimal, unicode, casesensitive,percentage,compareToSavedScan: boolean; savedscanname: string); //next scan, determine what kind of scan and give to firstnextscan/nextnextscan
     function waittilldone(timeout: dword=INFINITE): boolean;
     function waittillreallydone(timeout: dword=INFINITE): boolean;
+
+    procedure setScanDoneCallback(notifywindow: thandle; notifymessage: integer);
 
     function canUndo: boolean;
     procedure undoLastScan;
@@ -5547,6 +5554,7 @@ begin
     end;
     
   finally
+    OutputDebugString('Scan ended');
   end;
 
 
@@ -5657,9 +5665,11 @@ begin
     if haserror then err:=1;
 
     isdone:=true;
-
-    if assigned(Self.OwningMemScan.fOnScanDone) then Self.OwningMemScan.fOnScanDone(Self);
-      //postMessage(notifywindow,notifymessage,err,0);
+    if notifywindow<>0 then
+    begin
+      postMessage(notifywindow,notifymessage,err,0);
+      OutputDebugString('error on postmessage : '+inttostr(GetLastError()));
+    end;
 
 
     isdoneevent.setevent;
@@ -5829,8 +5839,13 @@ begin
 
       end;
 
-      if assigned(Self.fOnScanDone) then Self.fOnScanDone(Self);
-        //PostMessage(notifywindow, notifymessage,0,0);
+      if notifywindow<>0 then
+      begin
+        PostMessage(notifywindow, notifymessage,0,0);
+        OutputDebugString('error on postmessage : '+inttostr(GetLastError()));
+      end
+      else showmessage('wtf');
+
 
 
     end;
@@ -6116,6 +6131,8 @@ begin
   scancontroller.unicode:=unicode;
   scancontroller.casesensitive:=casesensitive;
   scancontroller.percentage:=percentage;
+  scancontroller.notifywindow:=notifywindow;
+  scancontroller.notifymessage:=notifymessage;
 
   scanController.allincludescustomtypes:=settings.allincludescustomtypes;
 
@@ -6194,6 +6211,8 @@ begin
   scancontroller.unicode:=unicode;
   scancontroller.casesensitive:=casesensitive;
   scancontroller.percentage:=false; //first scan does not have a percentage scan
+  scancontroller.notifywindow:=notifywindow;
+  scancontroller.notifymessage:=notifymessage;
 
   scanController.OnlyOne:=onlyone;
 
@@ -6205,6 +6224,12 @@ begin
   scanController.start;
 
 
+end;
+
+procedure TMemscan.setScanDoneCallback(notifywindow: thandle; notifymessage: integer);
+begin
+  self.notifywindow:=notifywindow;
+  self.notifymessage:=notifymessage;
 end;
 
 procedure TMemScan.parseProtectionflags(protectionflags: string);
