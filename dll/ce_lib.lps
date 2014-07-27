@@ -4,17 +4,17 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Release 64-Bit"/>
-    <Units Count="49">
+    <Units Count="50">
       <Unit0>
         <Filename Value="ce_lib.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ce_lib"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="173"/>
-        <CursorPos X="41" Y="193"/>
-        <FoldState Value=" T3D0{\;"/>
-        <UsageCount Value="80"/>
+        <TopLine Value="27"/>
+        <CursorPos X="30" Y="13"/>
+        <FoldState Value=" T3Z2{\u"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit0>
@@ -22,160 +22,158 @@
         <Filename Value="Assemblerunit.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Assemblerunit"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit1>
       <Unit2>
         <Filename Value="autoassembler.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="autoassembler"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit2>
       <Unit3>
         <Filename Value="byteinterpreter.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="byteinterpreter"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit3>
       <Unit4>
         <Filename Value="CEFuncProc.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="CEFuncProc"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit4>
       <Unit5>
         <Filename Value="CustomTypeHandler.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="CustomTypeHandler"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit5>
       <Unit6>
         <Filename Value="cvconst.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="cvconst"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit6>
       <Unit7>
         <Filename Value="driverlist.lrs"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit7>
       <Unit8>
         <Filename Value="DriverList.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="DriverList"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit8>
       <Unit9>
         <Filename Value="fileaccess.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="fileaccess"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit9>
       <Unit10>
         <Filename Value="Filehandler.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Filehandler"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit10>
       <Unit11>
         <Filename Value="FileMapping.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="FileMapping"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit11>
       <Unit12>
         <Filename Value="genericHotkey.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="genericHotkey"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit12>
       <Unit13>
         <Filename Value="hotkeyhandler.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="HotkeyHandler"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit13>
       <Unit14>
         <Filename Value="hypermode.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="hypermode"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit14>
       <Unit15>
         <Filename Value="memoryrecorddatabase.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MemoryRecordDatabase"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit15>
       <Unit16>
         <Filename Value="MemoryRecordUnit.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MemoryRecordUnit"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit16>
       <Unit17>
         <Filename Value="NewKernelHandler.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NewKernelHandler"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit17>
       <Unit18>
         <Filename Value="PEInfounit.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="PEInfounit"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit18>
       <Unit19>
         <Filename Value="ProcessHandlerUnit.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ProcessHandlerUnit"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit19>
       <Unit20>
         <Filename Value="savedscanhandler.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="savedscanhandler"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit20>
       <Unit21>
         <Filename Value="symbolhandler.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="symbolhandler"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit21>
       <Unit22>
         <Filename Value="symbollisthandler.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SymbolListHandler"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit22>
       <Unit23>
         <Filename Value="handshake.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="handshake"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="100"/>
       </Unit23>
       <Unit24>
         <Filename Value="..\library\addresschangeunit.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="AddressChangeUnit"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="37" Y="12"/>
-        <UsageCount Value="64"/>
-        <Loaded Value="True"/>
+        <CursorPos X="50" Y="14"/>
+        <UsageCount Value="84"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\library\settings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="settings"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="4" Y="10"/>
-        <UsageCount Value="51"/>
+        <UsageCount Value="71"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit25>
@@ -183,168 +181,159 @@
         <Filename Value="..\library\scanner.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="scanner"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="11"/>
-        <CursorPos X="13" Y="182"/>
-        <UsageCount Value="43"/>
+        <TopLine Value="173"/>
+        <CursorPos X="22" Y="199"/>
+        <FoldState Value=" TCFD{fb"/>
+        <UsageCount Value="63"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit26>
       <Unit27>
         <Filename Value="..\library\PEInfounit.pas"/>
         <UnitName Value="PEInfounit"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
         <TopLine Value="219"/>
         <CursorPos X="16" Y="226"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="49"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit27>
       <Unit28>
         <Filename Value="connector.pas"/>
         <UnitName Value="connector"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="288"/>
-        <CursorPos X="19" Y="310"/>
-        <FoldState Value=" T3i80l6V"/>
-        <UsageCount Value="39"/>
+        <TopLine Value="243"/>
+        <CursorPos X="68" Y="33"/>
+        <FoldState Value=" T3i80l11226G"/>
+        <UsageCount Value="49"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit28>
       <Unit29>
         <Filename Value="..\library\CEFuncProc.pas"/>
         <UnitName Value="CEFuncProc"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="231"/>
-        <CursorPos X="19" Y="264"/>
-        <UsageCount Value="31"/>
-        <Loaded Value="True"/>
+        <TopLine Value="1273"/>
+        <CursorPos X="9" Y="1292"/>
+        <UsageCount Value="33"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit29>
       <Unit30>
         <Filename Value="..\library\memoryrecorddatabase.pas"/>
         <UnitName Value="MemoryRecordDatabase"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="46" Y="162"/>
-        <UsageCount Value="35"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="37"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit30>
       <Unit31>
         <Filename Value="..\library\MemoryRecordUnit.pas"/>
         <UnitName Value="MemoryRecordUnit"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="33"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\library\byteinterpreter.pas"/>
         <UnitName Value="byteinterpreter"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="27"/>
         <CursorPos X="55" Y="57"/>
-        <UsageCount Value="32"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="34"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\library\memscan.pas"/>
         <UnitName Value="memscan"/>
-        <EditorIndex Value="14"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="5641"/>
-        <CursorPos X="73" Y="5661"/>
-        <UsageCount Value="30"/>
+        <TopLine Value="5759"/>
+        <CursorPos X="54" Y="20"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit33>
       <Unit34>
         <Filename Value="..\library\foundlisthelper.pas"/>
         <UnitName Value="foundlisthelper"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="62"/>
-        <CursorPos X="103" Y="71"/>
-        <UsageCount Value="30"/>
+        <TopLine Value="805"/>
+        <CursorPos X="27" Y="147"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\library\NewKernelHandler.pas"/>
         <UnitName Value="NewKernelHandler"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1276"/>
         <CursorPos X="3" Y="1290"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\library\symbolhandler.pas"/>
         <UnitName Value="symbolhandler"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
         <TopLine Value="126"/>
         <CursorPos X="14" Y="139"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit36>
       <Unit37>
         <Filename Value="..\library\CEDebugger.pas"/>
         <UnitName Value="CEDebugger"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="45" Y="10"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit37>
       <Unit38>
         <Filename Value="..\library\addressparser.pas"/>
         <UnitName Value="addressparser"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="79"/>
+        <TopLine Value="1"/>
         <CursorPos X="23" Y="94"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit38>
       <Unit39>
         <Filename Value="..\library\debughelper.pas"/>
         <UnitName Value="DebugHelper"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="92" Y="11"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit39>
       <Unit40>
         <Filename Value="..\library\autoassembler.pas"/>
         <UnitName Value="autoassembler"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="15" Y="1064"/>
-        <UsageCount Value="29"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="31"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit40>
       <Unit41>
@@ -353,7 +342,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2"/>
         <CursorPos X="14" Y="34"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="13"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit41>
       <Unit42>
@@ -362,7 +351,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="399"/>
         <CursorPos X="110" Y="1173"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="12"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit42>
       <Unit43>
@@ -371,7 +360,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="59" Y="14"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="12"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit43>
       <Unit44>
@@ -379,168 +368,186 @@
         <WindowIndex Value="0"/>
         <TopLine Value="758"/>
         <CursorPos X="10" Y="772"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit44>
       <Unit45>
         <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\win\wininc\redef.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="749"/>
         <CursorPos X="10" Y="769"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit45>
       <Unit46>
         <Filename Value="C:\lazarus\lcl\interfaces\win32\win32pagecontrol.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="648"/>
         <CursorPos X="36" Y="670"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit46>
       <Unit47>
         <Filename Value="..\library\CustomTypeHandler.pas"/>
         <UnitName Value="CustomTypeHandler"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="19"/>
-        <UsageCount Value="16"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit47>
       <Unit48>
         <Filename Value="C:\lazarus\fpc\2.6.4\source\rtl\inc\systemh.inc"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="226"/>
         <CursorPos X="52" Y="245"/>
-        <UsageCount Value="16"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="18"/>
       </Unit48>
+      <Unit49>
+        <Filename Value="..\library\Assemblerunit.pas"/>
+        <UnitName Value="Assemblerunit"/>
+        <EditorIndex Value="7"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="615"/>
+        <CursorPos X="25" Y="624"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit49>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="46" Column="36" TopLine="13"/>
+        <Filename Value="..\library\foundlisthelper.pas"/>
+        <Caret Line="278" Column="15" TopLine="246"/>
       </Position1>
       <Position2>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="53" Column="23" TopLine="20"/>
+        <Filename Value="..\library\foundlisthelper.pas"/>
+        <Caret Line="689" Column="15" TopLine="656"/>
       </Position2>
       <Position3>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="64" Column="21" TopLine="31"/>
+        <Filename Value="..\library\foundlisthelper.pas"/>
+        <Caret Line="797" Column="15" TopLine="764"/>
       </Position3>
       <Position4>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="75" Column="19" TopLine="42"/>
+        <Filename Value="connector.pas"/>
+        <Caret Line="276" Column="7" TopLine="249"/>
       </Position4>
       <Position5>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="76" Column="15" TopLine="53"/>
+        <Filename Value="connector.pas"/>
+        <Caret Line="270" Column="52" TopLine="252"/>
       </Position5>
       <Position6>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="93" Column="27" TopLine="60"/>
+        <Filename Value="connector.pas"/>
+        <Caret Line="256" Column="72" TopLine="236"/>
       </Position6>
       <Position7>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="114" Column="61" TopLine="81"/>
+        <Filename Value="connector.pas"/>
+        <Caret Line="259" Column="50" TopLine="236"/>
       </Position7>
       <Position8>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="115" Column="61" TopLine="82"/>
+        <Filename Value="..\library\scanner.pas"/>
+        <Caret Line="192" Column="19" TopLine="172"/>
       </Position8>
       <Position9>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="127" Column="36" TopLine="94"/>
+        <Filename Value="..\library\foundlisthelper.pas"/>
+        <Caret Line="71" Column="20" TopLine="52"/>
       </Position9>
       <Position10>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="164" Column="48" TopLine="131"/>
+        <Filename Value="..\library\Assemblerunit.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
       </Position10>
       <Position11>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="200" Column="110" TopLine="167"/>
+        <Filename Value="connector.pas"/>
+        <Caret Line="263" Column="105" TopLine="11"/>
       </Position11>
       <Position12>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="202" Column="36" TopLine="169"/>
+        <Filename Value="..\library\scanner.pas"/>
+        <Caret Line="3" Column="15" TopLine="1"/>
       </Position12>
       <Position13>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="203" Column="46" TopLine="170"/>
+        <Filename Value="..\library\scanner.pas"/>
+        <Caret Line="182" Column="38" TopLine="164"/>
       </Position13>
       <Position14>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="204" Column="38" TopLine="171"/>
+        <Filename Value="ce_lib.lpr"/>
+        <Caret Line="195" Column="69" TopLine="184"/>
       </Position14>
       <Position15>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="205" Column="38" TopLine="172"/>
+        <Filename Value="ce_lib.lpr"/>
+        <Caret Line="3" Column="1" TopLine="1"/>
       </Position15>
       <Position16>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="208" Column="52" TopLine="175"/>
+        <Filename Value="ce_lib.lpr"/>
+        <Caret Line="82" Column="58" TopLine="79"/>
       </Position16>
       <Position17>
-        <Filename Value="..\library\CEFuncProc.pas"/>
-        <Caret Line="211" Column="46" TopLine="178"/>
+        <Filename Value="..\library\scanner.pas"/>
+        <Caret Line="195" Column="42" TopLine="173"/>
       </Position17>
       <Position18>
-        <Filename Value="..\library\foundlisthelper.pas"/>
-        <Caret Line="81" Column="24" TopLine="62"/>
+        <Filename Value="..\library\scanner.pas"/>
+        <Caret Line="8" Column="66" TopLine="1"/>
       </Position18>
       <Position19>
-        <Filename Value="..\library\foundlisthelper.pas"/>
-        <Caret Line="82" Column="24" TopLine="62"/>
+        <Filename Value="..\library\memscan.pas"/>
+        <Caret Line="30" Column="11" TopLine="1"/>
       </Position19>
       <Position20>
-        <Filename Value="..\library\foundlisthelper.pas"/>
-        <Caret Line="159" Column="51" TopLine="126"/>
+        <Filename Value="..\library\memscan.pas"/>
+        <Caret Line="56" Column="24" TopLine="22"/>
       </Position20>
       <Position21>
-        <Filename Value="..\library\foundlisthelper.pas"/>
-        <Caret Line="166" Column="16" TopLine="143"/>
+        <Filename Value="..\library\memscan.pas"/>
+        <Caret Line="98" Column="22" TopLine="64"/>
       </Position21>
       <Position22>
-        <Filename Value="..\library\foundlisthelper.pas"/>
-        <Caret Line="379" Column="24" TopLine="347"/>
+        <Filename Value="..\library\memscan.pas"/>
+        <Caret Line="118" Column="41" TopLine="84"/>
       </Position22>
       <Position23>
-        <Filename Value="..\library\foundlisthelper.pas"/>
-        <Caret Line="380" Column="19" TopLine="347"/>
+        <Filename Value="..\library\scanner.pas"/>
+        <Caret Line="10" Column="69" TopLine="1"/>
       </Position23>
       <Position24>
-        <Filename Value="..\library\foundlisthelper.pas"/>
-        <Caret Line="399" Column="17" TopLine="367"/>
+        <Filename Value="..\library\scanner.pas"/>
+        <Caret Line="207" Column="14" TopLine="173"/>
       </Position24>
       <Position25>
-        <Filename Value="..\library\foundlisthelper.pas"/>
-        <Caret Line="457" Column="56" TopLine="424"/>
+        <Filename Value="..\library\scanner.pas"/>
+        <Caret Line="199" Column="15" TopLine="173"/>
       </Position25>
       <Position26>
-        <Filename Value="..\library\foundlisthelper.pas"/>
-        <Caret Line="472" Column="39" TopLine="440"/>
+        <Filename Value="connector.pas"/>
+        <Caret Line="47" Column="35" TopLine="41"/>
       </Position26>
       <Position27>
-        <Filename Value="..\library\foundlisthelper.pas"/>
-        <Caret Line="532" Column="31" TopLine="509"/>
+        <Filename Value="connector.pas"/>
+        <Caret Line="245" Column="17" TopLine="221"/>
       </Position27>
       <Position28>
-        <Filename Value="..\library\foundlisthelper.pas"/>
-        <Caret Line="536" Column="21" TopLine="509"/>
+        <Filename Value="connector.pas"/>
+        <Caret Line="263" Column="12" TopLine="242"/>
       </Position28>
       <Position29>
-        <Filename Value="..\library\foundlisthelper.pas"/>
-        <Caret Line="539" Column="31" TopLine="509"/>
+        <Filename Value="connector.pas"/>
+        <Caret Line="245" Column="24" TopLine="1"/>
       </Position29>
       <Position30>
-        <Filename Value="connector.pas"/>
-        <Caret Line="305" Column="35" TopLine="275"/>
+        <Filename Value="..\library\memscan.pas"/>
+        <Caret Line="505" Column="14" TopLine="497"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
+  <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="ce_lib.lpr"/>
+        <Line Value="217"/>
+      </Item1>
+    </BreakPoints>
+  </Debugging>
   <EditorMacros Count="0"/>
 </CONFIG>
