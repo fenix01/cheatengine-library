@@ -70,6 +70,7 @@ type
     procedure deleteaddress(i:integer);
     procedure clear;
     procedure RefetchValueList;
+    procedure ResetValues;
     function Initialize: int64; overload;
     function Initialize(vartype: TVariableType; customtype: TCustomType=nil):int64; overload;
     function Initialize(vartype: TVariableType; varlength: integer; hexadecimal,signed,binaryasdecimal,unicode: boolean; customtype: TCustomType=nil):int64; overload;  //initialize after a scan
@@ -407,6 +408,21 @@ begin
       inc(j);
     end;
   end;
+end;
+
+procedure TFoundList.ResetValues;
+var i,j: integer;
+    oldvalues: array of string;
+    si,l: integer;
+    x: dword;
+    temp: string;
+begin
+
+  if addressfile=nil then exit;
+
+  for i:=0 to 1023 do
+    if valuelist[i]<>'' then
+      valuelist[i]:='';
 end;
 
 function TFoundList.GetStartBit(i: integer):dword;

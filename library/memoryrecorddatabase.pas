@@ -16,6 +16,7 @@ private
 public
   procedure SelectAll;
   procedure clear;
+  procedure ApplyFreeze;
   procedure ActivateSelected(FreezeType: TFreezeType=ftFrozen); //activates all selected entries in the addresslist
   procedure DeactivateSelected;
   function getSelectedRecord: TMemoryRecord;
@@ -201,6 +202,14 @@ begin
   memrec := getRecordWithID(id);
   if (Assigned(memrec)) then
      records.Remove(memrec);
+end;
+
+procedure TMemoryRecordTable.ApplyFreeze;
+{Freeze all the records that are active}
+var i: integer;
+begin
+  for i:=0 to count-1 do
+    memrecitems[i].ApplyFreeze;
 end;
 
 procedure TMemoryRecordTable.addAddressManually(initialaddress: string=''; vartype: TVariableType=vtDword);
