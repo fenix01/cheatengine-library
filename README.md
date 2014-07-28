@@ -20,22 +20,38 @@ Features :
     LOADLIBRARY
 - scan the memory to find specific addresses
 
-1.1.0:
-- adding the memory scanner
+1.2.0:
+	the memory scanner is now fully supported
+	+added a memory scanner example for c# and delphi
+	+added new functions : 
+		INewScan, IConfigScanner, IResetTable, IRemoveRecord, IActivateRecord, 
+		IApplyFreeze, ISetValue, IInitFoundList, IResetValues, IRebaseAddressList,
+		IGetBinarySize
+	-removed :
+		IResetScripts, IRemoveScript, IActivateScript, IRegisterScanDoneCallback,
+		IInitializeFoundList, IDeinitMemoryScanner
+	*updated :
+		IInitMemoryScanner, INextScan
+	*updated the lazarus memory scanner example
+	*updated all wrappers (c#, delphi, c++)
 
-1.0.1 :
-- adding a c#wrapper and a c# example
+1.1.0:
+    this version is an alpha release of the memory scanner
+	+added a new set of functions to controls the memory scanner and the virtual cheat table :
+		IAddAddressManually, IGetValue, IInitMemoryScanner, IDeinitMemoryScanner, IFirstScan,
+		INextScan, ICountAddressesFound, IRegisterScanDoneCallback, IInitializeFoundList, IGetAddress
 
 1.0.0 :
-- adding the compiled library in the release page
-- adding a dll directory for anyone who wants to customize this dll
-- adding a wrapper directory that contains headers for various programming languages. (c++, delphi, c#)
-- adding a c++ example to call the dll
-- adding a new function to the library to remove a script 
+    +added the compiled library in the release page
+    +added a dll directory for anyone who wants to customize this dll
+    +added a wrapper directory that contains headers for various programming languages. (c++, delphi, c#)
+    +added a c++ example to call the dll
+    +added a new API : RemoveScript
 
 0.9.9 :
-- adding the source code for cheatengine-library
-- starting the cheat engine library project
+    started the cheat engine library project
+	+added the source code for the cheatengine-library
+	+API : IGetProcessList, IOpenProcess, IResetScripts, IAddScript, IActivateScript
 
 Where should I begin ?
 
