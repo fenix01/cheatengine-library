@@ -1,7 +1,7 @@
 /dll/lib
 **/__history
 **/x86_x64
-**/x86_64-win64/**
+**/x86_64-win64
 **/Win64
 **/x64
 **/bin
