@@ -8,137 +8,10 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, ComCtrls, LResources, CEFuncProc, windows, autoassembler,
   symbolhandler, PEInfounit, StrUtils, MemoryRecordUnit, MemoryRecordDatabase,
-  PEInfoFunctions, memscan, foundlisthelper, byteinterpreter;
+  PEInfoFunctions, memscan, foundlisthelper, byteinterpreter,scanner;
 
 const
-  wm_scandone = WM_USER + 2;
-  foundlistDisplayOverride = 0;
-
-type
-  TScanState = record
-    alignsizechangedbyuser: boolean;
-    compareToSavedScan: boolean;
-    currentlySelectedSavedResultname: string; //I love long variable names
-
-    lblcompareToSavedScan: record
-      Caption: string;
-      Visible: boolean;
-      left: integer;
-    end;
-
-
-    FromAddress: record
-      Text: string;
-    end;
-
-    ToAddress: record
-      Text: string;
-    end;
-
-    cbReadOnly: record
-      Checked: boolean;
-    end;
-
-    cbfastscan: record
-      Checked: boolean;
-    end;
-
-    cbunicode: record
-      checked: boolean;
-      visible: boolean;
-    end;
-
-    cbCaseSensitive: record
-      checked: boolean;
-      visible: boolean;
-    end;
-
-    edtAlignment: record
-      Text: string;
-    end;
-
-
-    cbpercentage: record
-      exists: boolean;
-      Checked: boolean;
-    end;
-
-
-    floatpanel: record
-      Visible: boolean;
-      rounded: boolean;
-      roundedextreme: boolean;
-      truncated: boolean;
-    end;
-
-    rbbit: record
-      Visible: boolean;
-      Enabled: boolean;
-      Checked: boolean;
-    end;
-
-    rbdec: record
-      Visible: boolean;
-      Enabled: boolean;
-      Checked: boolean;
-    end;
-
-    cbHexadecimal: record
-      Visible: boolean;
-      Checked: boolean;
-      Enabled: boolean;
-    end;
-
-    gbScanOptionsEnabled: boolean;
-
-    scantype: record
-      options: string;
-      ItemIndex: integer;
-      Enabled: boolean;
-      dropdowncount: integer;
-    end;
-
-    vartype: record
-      //options: TStringList;
-      ItemIndex: integer;
-      Enabled: boolean;
-    end;
-
-
-    memscan: TMemscan;
-    foundlist: TFoundList;
-
-
-    scanvalue: record
-      Visible: boolean;
-      Text: string;
-    end;
-
-    scanvalue2: record
-      exists: boolean;
-      Text: string;
-    end;
-
-    firstscanstate: record
-      Caption: string;
-      Enabled: boolean;
-    end;
-
-    nextscanstate: record
-      Enabled: boolean;
-    end;
-
-    button2: record
-      tag: integer;
-    end;
-
-    foundlist3: record
-      ItemIndex: integer;
-    end;
-    foundlistDisplayOverride: integer;
-
-  end;
-  PScanState = ^TScanState;
+  WM_SCANDONE = WM_APP + 2;
 
 type
 
@@ -149,11 +22,9 @@ type
     btnNextScan: TButton;
     btnProcess: TButton;
     btnFirstScan: TButton;
-    Button1: TButton;
     cbScanType: TComboBox;
     chkScripts: TCheckGroup;
     cbValueType: TComboBox;
-    Edit1: TEdit;
     edtValue: TEdit;
     edtName: TEdit;
     edtValue1: TEdit;
@@ -178,7 +49,6 @@ type
     procedure btnNextScanClick(Sender: TObject);
     procedure btnProcessClick(Sender: TObject);
     procedure btnFirstScanClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
     procedure cbScanTypeChange(Sender: TObject);
     procedure cbValueTypeChange(Sender: TObject);
     procedure chkScriptsItemClick(Sender: TObject; Index: integer);
@@ -191,17 +61,16 @@ type
     scanopt : TScanOption;
     varopt : TVariableType;
     recordTable : TMemoryRecordTable;
-    foundlist : TFoundList;
-    memscan : Tmemscan;
+    //foundlist : TFoundList;
+    //memscan : Tmemscan;
+    scanner : TIScanner;
     procedure resetScripts();
+    procedure ScanDone(var message: TMessage); message WM_SCANDONE;
     { private declarations }
   public
     procedure PWOP(ProcessIDString:string);
     procedure openProcessEpilogue();
-    procedure addScanner();
-    procedure SetupInitialScanTabState(scanstate: PScanState; IsFirstEntry: boolean);
-    procedure ScanDone(var message: TMessage); message WM_SCANDONE;
-    { public declarations }
+   { public declarations }
   end;
 
 var
@@ -441,6 +310,15 @@ end;
 
 { TfmCE }
 
+procedure TfmCE.ScanDone(var message: TMessage);
+begin
+  scanner.foundlist.clear;
+  scanner.foundlist.Initialize(vtDword, 4, false,
+    false, false, false,nil);
+  showmessage(inttostr(fmCE.scanner.memscan.GetFoundCount));
+  fmCE.Timer1.Enabled:=true;
+end;
+
 procedure TfmCE.PWOP(ProcessIDString:string);
 var i:integer;
 begin
@@ -474,8 +352,8 @@ end;
 
 procedure TfmCE.btnNextScanClick(Sender: TObject);
 begin
-  foundlist.Deinitialize;
-  memscan.nextscan(scanopt, rtRounded, utf8toansi(edtValue.Text),
+  scanner.foundlist.Deinitialize;
+  scanner.memscan.nextscan(scanopt, rtRounded, utf8toansi(edtValue.Text),
     utf8toansi(edtValue1.Text), false, false,
     false, false, false, false,
     '');
@@ -492,38 +370,19 @@ var
   fastscanmethod : Tfastscanmethod;
 
 begin
-  memscan := Tmemscan.create(nil);
-  foundlist := TFoundList.create(ListView1,memscan);
-  addScanner();
-  memscan.setScanDoneCallback(fmCE.handle, wm_scandone);
-  fastscanmethod:=TFastScanMethod.fsmAligned;
+  if assigned(scanner) then scanner.Free
+  else scanner := TIScanner.Create(Self.Handle,ListView1);
 
-  memscan.scanWritable := scanInclude;
-  memscan.scanExecutable := scanExclude;
-  memscan.scanCopyOnWrite := scanExclude;
+  fastscanmethod:=TFastScanMethod.fsmNotAligned;
+
+ // memscan.scanWritable := scanInclude;
+ // memscan.scanExecutable := scanExclude;
+ // memscan.scanCopyOnWrite := scanExclude;
   scanstart := StrToQWordEx('$' + '0000000000000000');
   scanend := StrToQWordEx('$' + '7fffffffffffffff');
-  memscan.firstscan(scanopt,varopt,TRoundingType.rtRounded,
+  scanner.memscan.firstscan(scanopt,varopt,TRoundingType.rtRounded,
   utf8toansi(edtValue.Text), utf8toansi(''),scanstart,scanend,
   false,false,false,true,fastscanmethod,'4',nil);
-end;
-
-procedure TfmCE.Button1Click(Sender: TObject);
-var
-  memrec : TMemoryRecord;
-  val : string;
-begin
-  if recordTable = nil then
-  begin
-    showmessage('You have to opened a process first !');
-  end
-  else
-  begin
-    recordTable.addAddressManually(edit1.Text,vtDword);
-    memrec := recordTable.getRecordWithID(0);
-    val := memrec.GetValue;
-  end;
-
 end;
 
 procedure TfmCE.cbScanTypeChange(Sender: TObject);
@@ -601,8 +460,8 @@ var
   invalid: boolean;
 begin
   try
-    valuetype:=foundlist.vartype;
-    address := foundlist.GetAddress(item.Index, extra, Value);
+    valuetype:=scanner.foundlist.vartype;
+    address := scanner.foundlist.GetAddress(item.Index, extra, Value);
     AddressString:=IntToHex(address,8);
     Value := AnsiToUtf8(Value);
 
@@ -624,7 +483,7 @@ begin
     PreviousValue:='';
 
 
-    if foundlist.vartype = vtBinary then //binary
+    if scanner.foundlist.vartype = vtBinary then //binary
     begin
       AddressString := AddressString + '^' + IntToStr(extra);
     end;
@@ -677,49 +536,11 @@ end;
 
 procedure TfmCE.Timer1Timer(Sender: TObject);
 begin
-    if foundlist <> nil then
+    if scanner.foundlist <> nil then
     begin
-         foundlist.RefetchValueList;
+         scanner.foundlist.RefetchValueList;
          ListView1.Refresh;
   end;
-end;
-
-procedure TfmCE.ScanDone(var message: TMessage);
-begin
-  foundlist.Initialize(vtDword, memscan.Getbinarysize, false,
-    false, false, false,nil);
-    Timer1.Enabled:=true;
-end;
-
-procedure TfmCE.addScanner();
-var
-   newstate: PScanState;
-begin
-   getmem(newstate, sizeof(TScanState));
-   SetupInitialScanTabState(newstate, True);
-end;
-
-procedure TfmCE.SetupInitialScanTabState(scanstate: PScanState;
-  IsFirstEntry: boolean);
-begin
-  ZeroMemory(scanstate, sizeof(TScanState));
-
-  if IsFirstEntry then
-  begin
-    scanstate^.memscan := memscan;
-    scanstate^.foundlist := foundlist;
-  end
-  else
-  begin
-    scanstate^.memscan := tmemscan.Create(nil);
-    scanstate^.foundlist := TFoundList.Create(ListView1, scanstate^.memscan);    //build again
-    scanstate^.memscan.setScanDoneCallback(fmCE.handle, wm_scandone);
-  end;
-
-  //initial scans don't have a previous scan
-  scanstate^.lblcompareToSavedScan.Visible := False;
-  scanstate^.compareToSavedScan := False;
-
 end;
 
 end.

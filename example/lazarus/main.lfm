@@ -1,7 +1,7 @@
 object fmCE: TfmCE
-  Left = 655
+  Left = 192
   Height = 765
-  Top = 51
+  Top = 95
   Width = 976
   Caption = 'Mini CE'
   ClientHeight = 765
@@ -171,7 +171,7 @@ object fmCE: TfmCE
       object btnNextScan: TButton
         Left = 120
         Height = 25
-        Top = 7
+        Top = 8
         Width = 75
         Caption = 'NextScan'
         OnClick = btnNextScanClick
@@ -269,23 +269,6 @@ object fmCE: TfmCE
         Caption = 'Value 2 :'
         ParentColor = False
         Visible = False
-      end
-      object Button1: TButton
-        Left = 328
-        Height = 25
-        Top = 120
-        Width = 75
-        Caption = 'Button1'
-        OnClick = Button1Click
-        TabOrder = 6
-      end
-      object Edit1: TEdit
-        Left = 328
-        Height = 23
-        Top = 88
-        Width = 120
-        TabOrder = 7
-        Text = 'Edit1'
       end
     end
   end
