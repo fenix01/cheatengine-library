@@ -21,6 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8B83D8A5-9C51-4E05-AFF1-471BDAF5CAF1}</ProjectGuid>
     <RootNamespace>sample</RootNamespace>
+    <ProjectName>autoassemble</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -126,11 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\wrapper\c++\Connector.cpp" />
-    <ClCompile Include="sample.cpp" />
+    <ClCompile Include="..\..\..\wrapper\c++\Connector.cpp" />
+    <ClCompile Include="autoassemble.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\wrapper\c++\Connector.hpp" />
+    <ClInclude Include="..\..\..\wrapper\c++\Connector.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

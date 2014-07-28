@@ -55,7 +55,7 @@ namespace Assembler
         private void btnInject_Click(object sender, EventArgs e)
         {
             lib.iAddScript("example",tbScript.Text);
-            lib.iActivateScript(0, true);
+            lib.iActivateRecord(0, true);
         }
     }
 }

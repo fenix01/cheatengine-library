@@ -3,9 +3,11 @@
 **/x86_x64
 **/x86_64-win64/**
 **/Win64
+**/x64
 **/bin
 **/obj
 *.dll
 *.bak
 *.dbg
 *.exe
+*.pdb

@@ -95,31 +95,13 @@ object fmSample: TfmSample
       'Put here your asm script !')
     TabOrder = 1
   end
-  object Button1: TButton
+  object btnInject: TButton
     Left = 120
     Top = 68
     Width = 147
     Height = 25
     Caption = 'Inject this script !'
     TabOrder = 2
-    OnClick = Button1Click
-  end
-  object Button2: TButton
-    Left = 160
-    Top = 8
-    Width = 75
-    Height = 25
-    Caption = 'Button2'
-    TabOrder = 3
-    OnClick = Button2Click
-  end
-  object Button3: TButton
-    Left = 256
-    Top = 8
-    Width = 75
-    Height = 25
-    Caption = 'Button3'
-    TabOrder = 4
-    OnClick = Button3Click
+    OnClick = btnInjectClick
   end
 end

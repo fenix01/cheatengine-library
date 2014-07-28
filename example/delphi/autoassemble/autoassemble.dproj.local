@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2014/05/15 13:59:56.000.880,=E:\Users\Yohann\Documents\RAD Studio\Projets\Unit1.pas</Transaction>
+    <Transaction>2014/05/15 14:00:28.000.037,E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\delphi\Main.pas=E:\Users\Yohann\Documents\RAD Studio\Projets\Unit1.pas</Transaction>
+    <Transaction>2014/05/15 14:00:28.000.037,E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\delphi\Main.dfm=E:\Users\Yohann\Documents\RAD Studio\Projets\Unit1.dfm</Transaction>
+    <Transaction>2014/05/15 14:00:34.000.067,E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\delphi\sample.dproj=E:\Users\Yohann\Documents\RAD Studio\Projets\Project1.dproj</Transaction>
+    <Transaction>2014/05/15 14:01:30.000.698,=E:\Users\Yohann\Documents\GitHub\cheatengine-library\wrapper\delphi\Connector.pas</Transaction>
+    <Transaction>2014/06/26 12:30:11.000.848,E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\delphi\autoassemble\sample.dproj=E:\Users\Yohann\Documents\GitHub\cheatengine-library\example\delphi\autoassemble\autoassemble.dproj</Transaction>
+    <Transaction>2014/06/26 12:31:46.000.898,=E:\Users\Yohann\Documents\GitHub\cheatengine-library\wrapper\delphi\Connector.pas</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -15,15 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="sample.cpp">
+    <ClCompile Include="autoassemble.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\wrapper\c++\Connector.cpp">
+    <ClCompile Include="..\..\..\wrapper\c++\Connector.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\wrapper\c++\Connector.hpp">
+    <ClInclude Include="..\..\..\wrapper\c++\Connector.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

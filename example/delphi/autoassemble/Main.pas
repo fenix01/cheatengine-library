@@ -16,16 +16,12 @@ type
     GroupBox1: TGroupBox;
     btnLoad: TButton;
     btnUnload: TButton;
-    Button1: TButton;
-    Button2: TButton;
-    Button3: TButton;
+    btnInject: TButton;
     procedure btnLoadClick(Sender: TObject);
     procedure btnUnloadClick(Sender: TObject);
     procedure btnProcessesClick(Sender: TObject);
     procedure btnOpenProcessClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
+    procedure btnInjectClick(Sender: TObject);
   private
     { Déclarations privées }
   public
@@ -39,16 +35,6 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure OnScanDone;
-var
-a,v : WideString;
-begin
-  IInitializeFoundList();
-  ShowMessage(inttostr(ICountAddressesFound()));
-  IGetAddress(0,a,v);
-  showmessage(a+':'+v);
-end;
 
 procedure TfmSample.btnLoadClick(Sender: TObject);
 begin
@@ -68,25 +54,10 @@ begin
   FreeLibrary(Handle);
 end;
 
-procedure TfmSample.Button1Click(Sender: TObject);
+procedure TfmSample.btnInjectClick(Sender: TObject);
 begin
   IAddScript('test',memoScript.Text);
   IActivateScript(0,true);
-end;
-
-procedure TfmSample.Button2Click(Sender: TObject);
-begin
-  IInitMemoryScanner();
-  IRegisterScanDoneCallback(OnScanDone);
-  IFirstScan(soExactValue,vtDword,TRoundingType.rtRounded,
-  utf8toansi('516'), utf8toansi(''),'$0000000000000000','$7fffffffffffffff',
-  false,false,false,true,TFastScanMethod.fsmAligned,'4');
-end;
-
-procedure TfmSample.Button3Click(Sender: TObject);
-begin
-  showmessage(inttostr(ICountAddressesFound()));
-  IDeinitMemoryScanner();
 end;
 
 procedure TfmSample.btnOpenProcessClick(Sender: TObject);
