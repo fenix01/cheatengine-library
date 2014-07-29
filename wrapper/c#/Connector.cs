@@ -61,7 +61,7 @@ namespace CheatEngine
  bool unicode, bool casesensitive, bool percentage, bool compareToSavedScan, [MarshalAs(UnmanagedType.BStr)] string savedscanname);
 
         public delegate Int64 ICountAddressesFound();
-        public delegate void IGetAddress(int index, [MarshalAs(UnmanagedType.BStr)] out string address, [MarshalAs(UnmanagedType.BStr)] out string value);
+        public delegate void IGetAddress(Int64 index, [MarshalAs(UnmanagedType.BStr)] out string address, [MarshalAs(UnmanagedType.BStr)] out string value);
         public delegate void IInitFoundList(TVariableType vartype, int varlength, bool hexadecimal, bool signed, bool binaryasdecimal, bool unicode);
         public delegate void IResetValues();
         public delegate int IGetBinarySize();
@@ -148,11 +148,11 @@ namespace CheatEngine
         }
         public void loadEngine()
         {
-            //#if _WIN64
+            #if _WIN64
             libInst = LoadLibraryW("ce-lib64.dll");
-            //#else
-            //libInst = LoadLibrary("ce-lib32.dll");
-            //#endif
+            #else
+            libInst = LoadLibrary("ce-lib32.dll");
+            #endif
             if (libInst != IntPtr.Zero)
             {
                 MessageBox.Show("loaded");
