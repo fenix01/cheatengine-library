@@ -25,31 +25,31 @@ The first goal of this project is to give you the ability to make your own softw
     * LOADLIBRARY
 * **Scan the memory to find specific addresses**
  * **Scan type :**
-   * Exact value
-   * Smaller than
-   * Bigger than
-   * Value between
-   * Unknown initial value
-   * Increase value
-   * Increase value by
-   * Decrease value
-   * Decrease value by
-   * Changed value
-   * Unchanged value
+    * Exact value
+    * Smaller than
+    * Bigger than
+    * Value between
+    * Unknown initial value
+    * Increase value
+    * Increase value by
+    * Decrease value
+    * Decrease value by
+    * Changed value
+    * Unchanged value
  * **Value type :**
-   * Binary
-   * Byte
-   * 2 Bytes
-   * 4 Bytes
-   * 8 Bytes
-   * Float
-   * Double
-   * String
+    * Binary
+    * Byte
+    * 2 Bytes
+    * 4 Bytes
+    * 8 Bytes
+    * Float
+    * Double
+    * String
   * **Memory scan options :**
-   * Start address, Stop address
-   * Writable, Cxecutable, CopyOnWrite
-   * Fast scan, Align and Not Align
-   * Unicode, Case Sensitive
+    * Start address, Stop address
+    * Writable, Cxecutable, CopyOnWrite
+    * Fast scan, Align and Not Align
+    * Unicode, Case Sensitive
 
 ##What's new ?
 **Please refer to the CHANGELOG file to get informations about the last release**
