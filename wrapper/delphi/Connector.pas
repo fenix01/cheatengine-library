@@ -45,7 +45,7 @@ type
   savedscanname: WideString); stdcall;
 
   TCountAddressesFound = function():Int64;stdcall;
-  TGetAddress = procedure(index : integer; out address : WideString ; out value : WideString);
+  TGetAddress = procedure(index : Int64; out address : WideString ; out value : WideString); stdcall;
   TInitFoundList = procedure (vartype: TVariableType; varlength: integer; hexadecimal,
   signed,binaryasdecimal,unicode: boolean);stdcall;
   TResetValues = procedure();stdcall;
@@ -88,8 +88,8 @@ begin
 
   @IResetTable := GetProcAddress(handle, 'IResetTable');
   @IAddScript := GetProcAddress(handle, 'IAddScript');
-  @IActivateRecord := GetProcAddress(handle, 'IActivateScript');
-  @IRemoveRecord := GetProcAddress(handle, 'IRemoveScript');
+  @IActivateRecord := GetProcAddress(handle, 'IActivateRecord');
+  @IRemoveRecord := GetProcAddress(handle, 'IRemoveRecord');
 
   @IAddAddressManually := GetProcAddress(handle, 'IAddAddressManually');
   @IGetValue := GetProcAddress(handle, 'IGetValue');
