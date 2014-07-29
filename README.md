@@ -13,7 +13,7 @@ The first goal of this project is to give you the ability to make your own softw
  * add an autoassemble script
  * activate, desactivate, freeze and unfreeze any address or script
 * **inject auto assemble script**
- * **supported symbols : **
+ * **supported symbols :**
    * ALLOC
    * DEALLOC
    * LABEL
@@ -23,7 +23,7 @@ The first goal of this project is to give you the ability to make your own softw
    * INCLUDE
    * READMEM
    * LOADLIBRARY
-- **Scan the memory to find specific addresses**
+* **Scan the memory to find specific addresses**
  * **Scan type :**
    * Exact value
    * Smaller than
