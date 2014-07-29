@@ -38,8 +38,12 @@ implementation
 
 procedure TfmSample.btnLoadClick(Sender: TObject);
 begin
-  dllHandle := LoadLibrary
-    ('ce-lib64.dll');
+  {$ifdef Win64}
+  dllHandle := LoadLibrary('ce-lib64.dll');
+  {$ENDIF}
+  {$ifdef Win32}
+  dllHandle := LoadLibrary('ce-lib32.dll');
+  {$ENDIF}
   if dllHandle <> 0 then
   begin
     ShowMessage('loaded');
@@ -57,7 +61,7 @@ end;
 procedure TfmSample.btnInjectClick(Sender: TObject);
 begin
   IAddScript('test',memoScript.Text);
-  IActivateScript(0,true);
+  IActivateRecord(0,true);
 end;
 
 procedure TfmSample.btnOpenProcessClick(Sender: TObject);

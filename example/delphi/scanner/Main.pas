@@ -88,7 +88,12 @@ implementation
 
 procedure TfmScanner.btnLoadClick(Sender: TObject);
 begin
+  {$ifdef Win64}
   dllHandle := LoadLibrary('ce-lib64.dll');
+  {$ENDIF}
+  {$ifdef Win32}
+  dllHandle := LoadLibrary('ce-lib32.dll');
+  {$ENDIF}
   if dllHandle <> 0 then
   begin
     ShowMessage('loaded');
