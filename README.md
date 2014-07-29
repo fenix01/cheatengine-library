@@ -14,15 +14,15 @@ The first goal of this project is to give you the ability to make your own softw
  * activate, desactivate, freeze and unfreeze any address or script
 * **inject auto assemble script**
  * **supported symbols :**
-   * ALLOC
-   * DEALLOC
-   * LABEL
-   * DEFINE
-   * REGISTERSYMBOL
-   * UNREGISTERSYMBOL
-   * INCLUDE
-   * READMEM
-   * LOADLIBRARY
+    * ALLOC
+    * DEALLOC
+    * LABEL
+    * DEFINE
+    * REGISTERSYMBOL
+    * UNREGISTERSYMBOL
+    * INCLUDE
+    * READMEM
+    * LOADLIBRARY
 * **Scan the memory to find specific addresses**
  * **Scan type :**
    * Exact value
