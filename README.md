@@ -23,6 +23,7 @@ The first goal of this project is to give you the ability to make your own softw
     * INCLUDE
     * READMEM
     * LOADLIBRARY
+    * CREATETHREAD
 * **Scan the memory to find specific addresses**
  * **Scan type :**
     * Exact value
