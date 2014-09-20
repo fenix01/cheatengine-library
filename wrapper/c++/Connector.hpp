@@ -40,8 +40,8 @@ typedef void(__stdcall *INextScan)(TScanOption scanOption, TRoundingType roundin
 	bool unicode, bool casesensitive, bool percentage, bool compareToSavedScan, 
 	BSTR savedscanname);
 
-typedef INT64(__stdcall *ICountAddressesFound)();
-typedef void(__stdcall *IGetAddress)(int index, BSTR &address, BSTR &value);
+typedef long long(__stdcall *ICountAddressesFound)();
+typedef void(__stdcall *IGetAddress)(long long index, BSTR &address, BSTR &value);
 typedef void(__stdcall *IInitFoundList)(TVariableType vartype, int varlength, 
 	bool hexadecimal, bool signed_, bool binaryasdecimal, bool unicode);
 typedef void(__stdcall *IResetValues)();
