@@ -1,9 +1,9 @@
 cheatengine-library
 ===================
 
-Cheat Engine Library is a small library based on Cheat Engine a powerfull memory editing software. You may found it here http://cheatengine.org/
+Cheat Engine Library is the first open source library based on Cheat Engine a powerfull memory editing software. You may found the original software here http://cheatengine.org/
 
-The first goal of this project is to give you the ability to make your own software with advanced features like auto assemble, dll injections, etc. You may be able to embed cheat engine library in a dll or anything else and avoid common detections.
+The first goal of this project is to give you the ability to make your own software with advanced features like auto assemble, dll injections, memory scanner etc. As you know, Cheat Engine doesn't provide any library and it could be very frustrating for a developer. This library is supported for both platform (x86/x64) and it is usable with popular programming languages (c#, c++, delphi).
 
 ![scanner_c](https://cloud.githubusercontent.com/assets/5822286/3718740/268557f8-163a-11e4-8585-ad3105b28859.png)
 
@@ -48,7 +48,7 @@ The first goal of this project is to give you the ability to make your own softw
     * String
   * **Memory scan options :**
     * Start address, Stop address
-    * Writable, Cxecutable, CopyOnWrite
+    * Writable, Executable, CopyOnWrite
     * Fast scan, Align and Not Align
     * Unicode, Case Sensitive
 
@@ -59,11 +59,11 @@ The first goal of this project is to give you the ability to make your own softw
 
 1. If you need an turnkey solution you should download :
  * one example (delphi, c#, or c++)
- * a wrapper for communicating with the dll
+ * a wrapper for communicating with the library
  * the library available in the release page : https://github.com/fenix01/cheatengine-library/releases
 
 2. If you need your own solution :
- * Download Lazarus 64 bits
+ * Download Lazarus 64 bits or Lazarus 32 bits
  * Copy the library and the dll directory
 
 ##Do you provide a documentation ?
