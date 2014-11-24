@@ -33,8 +33,14 @@ namespace Scanner
                 lvScanner.Items.Clear();
                 btnNextScan.Enabled = true;
                 size = lib.iGetBinarySize();
-                lib.iInitFoundList(varopt, size, false, false, false, unicode);
 
+                if (varopt == TVariableType.vtString)
+                    if (unicode)
+                        lib.iInitFoundList(varopt, size/16, false, false, false, unicode);
+                    else
+                        lib.iInitFoundList(varopt, size/8, false, false, false, unicode);
+                else
+                    lib.iInitFoundList(varopt, size, false, false, false, unicode);
                 if (scanopt != TScanOption.soUnknownValue)
                 {
                     i = Math.Min((int)lib.iCountAddressesFound(), 10000000);
@@ -249,6 +255,11 @@ namespace Scanner
         private void cbUnicode_CheckedChanged(object sender, EventArgs e)
         {
             unicode = cbUnicode.Checked;
+        }
+
+        private void cbCase_CheckedChanged(object sender, EventArgs e)
+        {
+            casesensitive = cbCase.Checked;
         }
 
     }

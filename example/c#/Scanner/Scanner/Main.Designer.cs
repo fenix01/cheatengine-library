@@ -454,6 +454,7 @@
             this.cbCase.TabIndex = 1;
             this.cbCase.Text = "Case Sensitive";
             this.cbCase.UseVisualStyleBackColor = true;
+            this.cbCase.CheckedChanged += new System.EventHandler(this.cbCase_CheckedChanged);
             // 
             // cbUnicode
             // 
