@@ -1,4 +1,5 @@
-############################ ANNOUNCE (30/07/2016) ############################
+---------------------------- ANNOUNCE (30/07/2016) ----------------------------
+
 
 YOU HAVE PROBABLY NOTICE THAT THIS PROJECT HAS NOT BEEN UPDATED FOR A WHILE. YOU WERE PROBABLY LOOKING FOR UPDATES BUT I DON'T HAVE THE TIME TO CREATE NEW VERSIONS. IT HAS BEEN FOR ME A TIME-CONSUMING PROJECT.
 I'M SORRY TO LET YOU KNOW THAT THIS PROJECT WILL NOT RECEIVE ANY BUG FIXES OR UPDATES IN THE FUTURE.
@@ -13,7 +14,7 @@ BEST REGARDS.
 
 FENIX
 
-###############################################################################
+-------------------------------------------------------------------------------
 
 
 cheatengine-library
