@@ -1,18 +1,22 @@
 ---------------------------- ANNOUNCE (30/07/2016) ----------------------------
 
+You have probably notice that this project has not been updated for a while.
 
-YOU HAVE PROBABLY NOTICE THAT THIS PROJECT HAS NOT BEEN UPDATED FOR A WHILE. YOU WERE PROBABLY LOOKING FOR UPDATES BUT I DON'T HAVE THE TIME TO CREATE NEW VERSIONS. IT HAS BEEN FOR ME A TIME-CONSUMING PROJECT.
-I'M SORRY TO LET YOU KNOW THAT THIS PROJECT WILL NOT RECEIVE ANY BUG FIXES OR UPDATES IN THE FUTURE.
-THE WEBSITE CHEATALK.COM WILL BE REMOVED VERY SOON BUT THE PROJECT WILL STILL BE AVAILABLE ON GITHUB.
-IF ANYONE IS INTERESTED IN PURSUING THIS PROJECT YOU CAN FORK THE SOURCE CODE (JUST REMEMBER : IT'S OPEN SOURCE AND THE ORIGINAL PROJECT WAS INITIATED BY DARK BYTE : http://www.cheatengine.org/)
+You were probably looking for updates but i don't have the time to create new versions.
 
-IF YOU WANT TO CONTACT ME YOU CAN SEND ME A MAIL : p-yohann@hotmail.fr
+It has been for me a time-consuming project. I'm sorry to let you know that this project will not receive any bug fixes or updates in the future.
 
-THANKS TO ALL WHO WERE SUPPORTING THIS PROJECT,
+The website cheatalk.com will be removed very soon but the project will still be available on github.
 
-BEST REGARDS.
+If anyone is interested in pursuing this project you can fork the source code (just remember : it's open source and the original project was initiated by dark byte : http://www.cheatengine.org/)
 
-FENIX
+If you want to contact me you can send me a mail : p-yohann@hotmail.fr
+
+Thanks to all who were supporting this project,
+
+Best regards.
+
+Fenix
 
 -------------------------------------------------------------------------------
 
