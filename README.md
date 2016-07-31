@@ -10,7 +10,7 @@ The website cheatalk.com will be removed very soon but the project will still be
 
 If anyone is interested in pursuing this project you can fork the source code (just remember : it's open source and the original project was initiated by dark byte : http://www.cheatengine.org/)
 
-If you want to contact me you can send me a mail : p-yohann@hotmail.fr
+If you want to contact me you can send me an mail at : [p-yohann][@][hotmail.fr]
 
 Thanks to all who were supporting this project,
 
