@@ -23,7 +23,7 @@ typedef void(__stdcall *IApplyFreeze)();
 typedef void(__stdcall *IAddAddressManually)(BSTR initialaddress, TVariableType vartype);
 typedef void(__stdcall *IGetValue)(int id, BSTR &value);
 typedef void(__stdcall *ISetValue)(int id, BSTR value, bool freezer);
-typedef void(__stdcall *IProcessAddress)(BSTR address, TVariableType vartype, bool showashexadecimal, bool showassigned , int bytesize, BSTR &res_address);
+typedef void(__stdcall *IProcessAddress)(BSTR address, TVariableType vartype, bool showashexadecimal, bool showassigned, int bytesize, BSTR &res_address);
 
 typedef void(__stdcall *IInitMemoryScanner)(HWND hwnd);
 typedef void(__stdcall *INewScan)();
@@ -35,18 +35,18 @@ typedef void(__stdcall *IFirstScan)(TScanOption scanOption, TVariableType variab
 	bool unicode, bool casesensitive, TFastScanMethod fastscanmethod,
 	BSTR fastscanparameter);
 
-typedef void(__stdcall *INextScan)(TScanOption scanOption, TRoundingType roundingtype, 
+typedef void(__stdcall *INextScan)(TScanOption scanOption, TRoundingType roundingtype,
 	BSTR scanvalue1, BSTR scanvalue2, bool hexadecimal, bool binaryStringAsDecimal,
-	bool unicode, bool casesensitive, bool percentage, bool compareToSavedScan, 
+	bool unicode, bool casesensitive, bool percentage, bool compareToSavedScan,
 	BSTR savedscanname);
 
 typedef long long(__stdcall *ICountAddressesFound)();
 typedef void(__stdcall *IGetAddress)(long long index, BSTR &address, BSTR &value);
-typedef void(__stdcall *IInitFoundList)(TVariableType vartype, int varlength, 
+typedef void(__stdcall *IInitFoundList)(TVariableType vartype, int varlength,
 	bool hexadecimal, bool signed_, bool binaryasdecimal, bool unicode);
 typedef void(__stdcall *IResetValues)();
 typedef void(__stdcall *IRebaseAddressList)(int index);
-typedef void(__stdcall *IGetBinarySize)();
+typedef int(__stdcall *IGetBinarySize)();
 
 
 extern IGetProcessList iGetProcessList;
