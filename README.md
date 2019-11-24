@@ -1,28 +1,6 @@
----------------------------- ANNOUNCE (30/07/2016) ----------------------------
-
-You have probably notice that this project has not been updated for a while.
-
-You were probably looking for updates but i don't have the time to create new versions.
-
-It has been for me a time-consuming project. I'm sorry to let you know that this project will not receive any bug fixes or updates in the future.
-
-The website cheatalk.com will be removed very soon but the project will still be available on github.
-
-If anyone is interested in pursuing this project you can fork the source code (just remember : it's open source and the original project was initiated by dark byte : http://www.cheatengine.org/)
-
-If you want to contact me you can send me an mail at : [p-yohann][@][hotmail.fr]
-
-Thanks to all who were supporting this project,
-
-Best regards.
-
-Fenix
-
--------------------------------------------------------------------------------
-
-
 cheatengine-library
 ===================
+@contact : [p-yohann][@][hotmail.fr]
 
 Cheat Engine Library is the first open source library based on Cheat Engine a powerfull memory editing software. You may found the original software here http://cheatengine.org/
 
