@@ -8,7 +8,7 @@ The first goal of this project is to give you the ability to make your own softw
 
 ![scanner_c](https://cloud.githubusercontent.com/assets/5822286/3718740/268557f8-163a-11e4-8585-ad3105b28859.png)
 
-##Features :
+## Features :
 * **manage a virtual cheat engine table**
  * add an address manually
  * add an autoassemble script
@@ -53,10 +53,10 @@ The first goal of this project is to give you the ability to make your own softw
     * Fast scan, Align and Not Align
     * Unicode, Case Sensitive
 
-##What's new ?
+## What's new ?
 **Please refer to the CHANGELOG file to get informations about the last release**
 
-##Where should I begin ?
+## Where should I begin ?
 
 1. If you need an turnkey solution you should download :
  * one example (delphi, c#, or c++)
@@ -67,6 +67,6 @@ The first goal of this project is to give you the ability to make your own softw
  * Download Lazarus 64 bits or Lazarus 32 bits
  * Copy the library and the dll directory
 
-##Do you provide a documentation ?
+## Do you provide a documentation ?
 
 Yes, I made a description of the cheat engine library apis. Follow this link https://github.com/fenix01/cheatengine-library/wiki/Guideline
